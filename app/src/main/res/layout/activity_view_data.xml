@@ -16,6 +16,7 @@
         <ImageButton
             android:id="@+id/bgl_list"
             android:src="@drawable/opacity"
+            android:background="@color/colorPrimaryDark"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
 
@@ -25,6 +26,7 @@
         <ImageButton
             android:id="@+id/medication_list"
             android:src="@drawable/pill"
+            android:background="@color/colorPrimaryDark"
             android:layout_toRightOf="@id/bgl_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -32,6 +34,7 @@
         <ImageButton
             android:id="@+id/diet_list"
             android:src="@drawable/food_apple"
+            android:background="@color/colorPrimaryDark"
             android:layout_toRightOf="@id/medication_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -39,6 +42,7 @@
         <ImageButton
             android:id="@+id/exercise_list"
             android:src="@drawable/bike"
+            android:background="@color/colorPrimaryDark"
             android:layout_toRightOf="@id/diet_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
