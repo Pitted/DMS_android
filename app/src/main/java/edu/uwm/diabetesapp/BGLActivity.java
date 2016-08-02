@@ -90,7 +90,7 @@ public class BGLActivity extends Activity {
     }
 
     private void saveBGL(){
-        boolean saved = diabeticdb.saveEvent(0,bglLevel.getBGL(),null,null,null);
+        boolean saved = diabeticdb.saveEvent(bglLevel);
           //int code, int bgl, String diet, String exercise, String medication
         if( saved == true )
             Toast.makeText(BGLActivity.this, "BGL Saved", Toast.LENGTH_LONG).show();

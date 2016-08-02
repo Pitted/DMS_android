@@ -123,7 +123,7 @@ public class FitnessActivity extends Activity {
     private void SaveFitnessEvent(){
         fitnessItem.setFitnessEvent(fitnessItem.getQty(),fitnessItem.getExercise());
 
-        boolean saved = fitnessdb.saveEvent(2,0,null,fitnessItem.getFitnessEvent(),null);
+        boolean saved = fitnessdb.saveEvent(fitnessItem);
         //int code, int bgl, String diet, String exercise, String medication
         if( saved == true )
             Toast.makeText(FitnessActivity.this, "Exercise Saved", Toast.LENGTH_LONG).show();

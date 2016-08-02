@@ -64,7 +64,17 @@ public class MainActivity extends Activity {
                 startActivity(gotoGraphs);
             }
         });
-    }//end OnCreate
+        Button inputEvents = (Button) findViewById(R.id.input_events_button);
+        inputEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gotoAddData = new Intent(MainActivity.this, AddDataActivity.class);
+                startActivity(gotoAddData);
+            }
+                }
+        );
+    }
+    //end OnCreate
 
     /*
     @Override

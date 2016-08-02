@@ -40,6 +40,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /*
+    Code: BGL-0
+          Nutrition-1
+          Fitness-2
+          Medication-3
+     */
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + DATABASE_TABLE +
@@ -57,29 +64,71 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean saveEvent (int code, int bgl, String diet, String exercise, String medication) {
-        String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
+    public boolean saveEvent(DataEvent event){
+       String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
         ContentValues cv = new ContentValues();
-        cv.put("DateTime", formattedDate);
-        cv.put("EventCode", code);
-        cv.put("BGL", bgl);
-        cv.put("Diet", diet);
-        cv.put("Exercise", exercise);
-        cv.put("Medication", medication);
-
-        long res = db.insert(DATABASE_TABLE, null, cv);
-
-        if( res == -1 )
+        if(event instanceof BGLLevel){
+            cv.put("DateTime", timestamp);
+            cv.put("EventCode", 0);
+            cv.put("BGL", (((BGLLevel) event).getBGL()));
+            cv.put("Diet", "");
+            cv.put("Exercise", "");
+            cv.put("Medication", "");
+        }else if(event instanceof MedicationEvent){
+            cv.put("DateTime", timestamp);
+            cv.put("EventCode", 3);
+            cv.put("BGL","");
+            cv.put("Diet", "");
+            cv.put("Exercise", "");
+            cv.put("Medication", (((MedicationEvent) event).getMedicationEvent()));
+        }else if(event instanceof NutritionEvent){
+            cv.put("DateTime", timestamp);
+            cv.put("EventCode", 1);
+            cv.put("BGL","");
+            cv.put("Diet", ((NutritionEvent) event).getNutritionEvent());
+            cv.put("Exercise", "");
+            cv.put("Medication", "");
+        }
+        else{
+            cv.put("DateTime", timestamp);
+            cv.put("EventCode", 2);
+            cv.put("BGL","");
+            cv.put("Diet", "");
+            cv.put("Exercise", ((FitnessEvent) event).getFitnessEvent());
+            cv.put("Medication", "");
+        }
+        if(this.getWritableDatabase().insert(DATABASE_TABLE, null, cv) == -1)
             return false;
-        else {
-            Log.v("DB EVENT", formattedDate + "\t" + code + "\t" +bgl + "\t" + diet + "\t" + exercise + "\t" + medication);
+        else{
+            Log.v("DB EVENT", cv.toString());
             return true;
         }
 
     }
+
+//    public boolean saveEvent (int code, int bgl, String diet, String exercise, String medication) {
+//        String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues cv = new ContentValues();
+//        cv.put("DateTime", formattedDate);
+//        cv.put("EventCode", code);
+//        cv.put("BGL", bgl);
+//        cv.put("Diet", diet);
+//        cv.put("Exercise", exercise);
+//        cv.put("Medication", medication);
+//
+//        long res = db.insert(DATABASE_TABLE, null, cv);
+//
+//        if( res == -1 )
+//            return false;
+//        else {
+//            Log.v("DB EVENT", formattedDate + "\t" + code + "\t" +bgl + "\t" + diet + "\t" + exercise + "\t" + medication);
+//            return true;
+//        }
+//
+//    }
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();

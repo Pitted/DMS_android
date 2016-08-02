@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/row_background">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:src="@drawable/pill"
+        android:layout_gravity="center"
+
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/med_input_qty"
+        android:hint="qty"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:textSize="14dp"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/med_input_desc"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:hint="description"
+        android:textSize="14dp"
+        />
+    <CheckBox
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:id="@+id/med_checkbox"/>
+
+</LinearLayout>

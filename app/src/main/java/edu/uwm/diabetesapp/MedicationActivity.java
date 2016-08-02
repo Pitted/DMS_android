@@ -116,7 +116,7 @@ public class MedicationActivity extends Activity {
     private void SaveMedicationEvent(){
         medicationItem.setMedicationEvent(medicationItem.getQty(),medicationItem.getMedication());
 
-        boolean saved = medicationdb.saveEvent(3,0,null,null,medicationItem.getMedicationEvent());
+        boolean saved = medicationdb.saveEvent(medicationItem);
         //int code, int bgl, String diet, String exercise, String medication
         if( saved == true )
             Toast.makeText(MedicationActivity.this, "Medication Saved", Toast.LENGTH_LONG).show();

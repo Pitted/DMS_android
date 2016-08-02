@@ -115,7 +115,7 @@ public class NutritionActivity extends Activity {
     private void SaveNutritionEvent(){
         nutritionItem.setNutritionEvent(nutritionItem.getQty(),nutritionItem.getNutrition());
 
-        boolean saved = nutritiondb.saveEvent(1,0,nutritionItem.getNutritionEvent(),null,null);
+        boolean saved = nutritiondb.saveEvent(nutritionItem);
         //int code, int bgl, String diet, String exercise, String medication
         if( saved == true )
             Toast.makeText(NutritionActivity.this, "Food Saved", Toast.LENGTH_LONG).show();

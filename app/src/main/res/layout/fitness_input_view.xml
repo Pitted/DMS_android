@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/fitness_input_container"
+    android:background="@color/row_background">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/desc_img"
+        android:src="@drawable/bike"
+        android:layout_gravity="center"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="qty"
+        android:id="@+id/fitness_input_qty"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:textSize="14dp"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="description"
+        android:layout_gravity="center"
+        android:id="@+id/fitness_input_desc"
+        android:textSize="14dp"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="DateTime"
+        android:textSize="14dp"
+        android:layout_gravity="center"/>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:checked="true"
+        android:id="@+id/fitness_checkbox"
+        />
+
+
+</LinearLayout>

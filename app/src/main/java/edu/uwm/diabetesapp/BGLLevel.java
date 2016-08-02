@@ -3,7 +3,7 @@ package edu.uwm.diabetesapp;
 /**
  * Created by Lenovo on 7/9/2016.
  */
-public class BGLLevel {
+public class BGLLevel extends DataEvent {
 
     private int bglLevel;
 

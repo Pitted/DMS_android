@@ -3,7 +3,7 @@ package edu.uwm.diabetesapp;
 /**
  * Created by Lenovo on 7/15/2016.
  */
-public class FitnessEvent {
+public class FitnessEvent extends DataEvent {
 
     private int qty;
     private String exercise;
