@@ -17,9 +17,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //diabeticdb = new DatabaseHelper(this);
         diabeticdb = DatabaseHelper.getInstance(this);
 
+        //~~set up the BGL button~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Button BGLBtn = (Button) findViewById(R.id.BGLbutton);
         BGLBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,6 +31,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        //~~set up the nutrition button~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Button NutritionBtn = (Button) findViewById(R.id.Nutritionbutton);
         NutritionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +41,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        //~~set up the fitness button~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Button FitnessBtn = (Button) findViewById(R.id.Fitnessbutton);
         FitnessBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +51,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        //~~set up the medication button~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Button MedicationBtn = (Button) findViewById(R.id.Medicationbutton);
         MedicationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,12 +61,13 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button GraphsBtn = (Button) findViewById(R.id.Graphbutton);
-        MedicationBtn.setOnClickListener(new View.OnClickListener() {
+        //~~set up the stats button~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        Button StatsBtn = (Button) findViewById(R.id.Statsbutton);
+        StatsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gotoGraphs = new Intent(MainActivity.this, GraphActivity.class);
-                startActivity(gotoGraphs);
+                Intent gotoStats = new Intent(MainActivity.this, StatsSortActivity.class);
+                startActivity(gotoStats);
             }
         });
     }//end OnCreate
@@ -73,4 +79,5 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }*/
+
 }//end class

@@ -11,19 +11,8 @@
     tools:context=".BGLActivity"
     android:weightSum="1">
 
-    <!--
     <SeekBar
-        android:id="@+id/seekBar1"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:height="100dp"
-        android:width="160dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:indeterminate="false" />
-        -->
-    <SeekBar
-        android:id="@+id/seekBar1"
+        android:id="@+id/BGLseekBar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:progressDrawable="@drawable/progress"
@@ -40,21 +29,51 @@
         android:textAlignment="center">
     </TextView>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingBottom="5dp"
+        android:paddingTop="0dp"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:text="Select Date"
+            android:onClick="showDatePickerDialog"
+            android:id="@+id/date_btn"
+            android:textSize="20sp"
+            android:minWidth="125dp" />
+
+        <Button
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Select Time"
+            android:onClick="showTimePickerDialog"
+            android:id="@+id/time_btn"
+            android:textSize="20sp"
+            android:minWidth="125dp" />
+    </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/BGLSave_btn"
-        android:height="100dp"
+        android:height="60dp"
         android:width="160dp"
-        android:textSize="30dp"
-        android:layout_below="@+id/seekBar1"
+        android:textSize="20sp"
+        android:layout_below="@+id/BGLTime_txt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:layout_marginTop="10dp" />
+        android:drawableLeft="@drawable/save"
+        android:layout_marginTop="0dp" />
 
 
     <Button
@@ -62,34 +81,30 @@
         android:layout_height="wrap_content"
         android:text="BGL Stats"
         android:id="@+id/BGLStats_btn"
-        android:height="100dp"
+        android:height="60dp"
         android:width="160dp"
-        android:textSize="30dp"
+        android:textSize="20sp"
         android:layout_below="@+id/BGLSave_btn"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_gravity="center_vertical"
         android:textAlignment="center"
+        android:drawableLeft="@drawable/viewlog"
         android:textAllCaps="false"/>
-    <!--android:drawableLeft="@drawable/bglstats"-->
-
 
     <Button
+        android:id="@+id/BGLScript_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Prescription"
-        android:id="@+id/BGLScript_btn"
-        android:height="100dp"
+        android:height="60dp"
         android:width="160dp"
-        android:textSize="30dp"
+        android:textSize="20sp"
         android:layout_below="@+id/BGLStats_btn"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textAlignment="center"
         android:drawableLeft="@drawable/script"
         android:textAllCaps="false"/>
-
-
-
 
 </LinearLayout>
