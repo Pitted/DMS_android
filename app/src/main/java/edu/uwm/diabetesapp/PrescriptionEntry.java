@@ -1,75 +1,69 @@
 package edu.uwm.diabetesapp;
 
-/**
- * Created by Lenovo on 7/14/2016.
- */
 public class PrescriptionEntry {
 
     //MEMBER ATTRIBUTES
-    private String timestamp;
+    private int id;
     private int code;
-    private int BGL;
+    private long frequency;
+    private long eventEnd;
+    private long nextOccurrence;
+    private String bgl;
     private String diet;
     private String exercise;
     private String medication;
 
     public PrescriptionEntry(){}
 
-    public PrescriptionEntry(String time, int id, int bgl, String nutrition, String fitness, String meds){
-        timestamp = time;
-        code = id;
-        BGL = bgl;
-        diet = nutrition;
-        exercise = fitness;
-        medication = meds;
-    }
+    public void setID(int ID) {id = ID;}
+    public int getID() {return id;}
 
-    public String getTime(){
-        return timestamp;
+    public void setCode(int CODE){
+        code = CODE;
     }
-
-    public void setTime(String time){
-        timestamp = time;
-    }
-
     public int getCode(){
         return code;
     }
 
-    public void setCode(int id){
-        code = id;
+    public void setFrequency(long FREQUENCY){frequency = FREQUENCY;}
+    public long getFrequency(){
+        return frequency;
     }
 
-    public int getBGL(){
-        return BGL;
+    public void setNextOccurrence(long nextoccurrence){nextOccurrence = nextoccurrence;}
+    public long getNextOccurrence(){
+        return nextOccurrence;
     }
 
-    public void setBGL(int bgl){
-        BGL = bgl;
+    public void setEventEnd(long eventend){eventEnd = eventend;}
+    public long getEventEnd(){
+        return eventEnd;
     }
 
-    public String getDiet(){
-        return diet;
+    public void setBGL(String checkBGL){
+        bgl = checkBGL;
+    }
+    public String getBGL(){
+        return bgl;
     }
 
     public void setDiet(String nutrition){
         diet = nutrition;
     }
-
-    public String getExercise(){
-        return exercise;
+    public String getDiet(){
+        return diet;
     }
 
     public void setExercise(String fitness){
         exercise = fitness;
     }
-
-    public String getMedication(){
-        return medication;
+    public String getExercise(){
+        return exercise;
     }
 
-    public void setMedication(String meds){
-        medication = meds;
-    }
+    public void setMedication(String meds) {medication = meds;}
+    public String getMedication(){return medication; }
+
+
 
 }

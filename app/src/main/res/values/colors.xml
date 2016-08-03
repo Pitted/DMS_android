@@ -6,4 +6,6 @@
     <color name="main_window_BG_color">#303f9f</color>
     <color name="main_window_TXT_color">#FFFFFF</color>
     <color name="row_background">#4F4F4F</color>
+    <color name="radio_unchecked">#FFFFFF</color>
+    <color name="radio_checked">#FFFFFF</color>
 </resources>

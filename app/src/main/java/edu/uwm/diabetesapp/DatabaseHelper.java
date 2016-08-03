@@ -1,8 +1,5 @@
 package edu.uwm.diabetesapp;
 
-/**
- * Created by Lenovo on 7/13/2016.
- */
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -40,6 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+
     /*
     Code: BGL-0
           Nutrition-1
@@ -47,6 +45,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
           Medication-3
      */
 
+
+/*
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + DATABASE_TABLE +
@@ -56,7 +56,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Diet TEXT," +
                 "Exercise TEXT," +
                 "Medication TEXT);");
-     }
+     }*/
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("create table " + DATABASE_TABLE +
+                "(Event INTEGER PRIMARY KEY, " +
+                "DateTime TEXT," +
+                "EventCode INTEGER," +
+                "BGL INTEGER," +
+                "Diet TEXT," +
+                "Exercise TEXT," +
+                "Medication TEXT);");
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -64,43 +76,71 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean saveEvent(DataEvent event){
-       String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
+
+    public boolean saveEvent(DataEvent event) {
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
         ContentValues cv = new ContentValues();
-        if(event instanceof BGLLevel){
+        if (event instanceof BGLLevel) {
             cv.put("DateTime", timestamp);
             cv.put("EventCode", 0);
             cv.put("BGL", (((BGLLevel) event).getBGL()));
             cv.put("Diet", "");
             cv.put("Exercise", "");
             cv.put("Medication", "");
-        }else if(event instanceof MedicationEvent){
+        } else if (event instanceof MedicationEvent) {
             cv.put("DateTime", timestamp);
             cv.put("EventCode", 3);
-            cv.put("BGL","");
+            cv.put("BGL", "");
             cv.put("Diet", "");
             cv.put("Exercise", "");
             cv.put("Medication", (((MedicationEvent) event).getMedicationEvent()));
-        }else if(event instanceof NutritionEvent){
+        } else if (event instanceof NutritionEvent) {
             cv.put("DateTime", timestamp);
             cv.put("EventCode", 1);
-            cv.put("BGL","");
+            cv.put("BGL", "");
             cv.put("Diet", ((NutritionEvent) event).getNutritionEvent());
             cv.put("Exercise", "");
             cv.put("Medication", "");
-        }
-        else{
+        } else {
             cv.put("DateTime", timestamp);
             cv.put("EventCode", 2);
-            cv.put("BGL","");
+            cv.put("BGL", "");
             cv.put("Diet", "");
-            cv.put("Exercise", ((FitnessEvent) event).getFitnessEvent());
+            cv.put("Exercise", ((FitnessEvent) event).getExercise());
             cv.put("Medication", "");
         }
-        if(this.getWritableDatabase().insert(DATABASE_TABLE, null, cv) == -1)
+        if (this.getWritableDatabase().insert(DATABASE_TABLE, null, cv) == -1)
             return false;
-        else{
+        else {
             Log.v("DB EVENT", cv.toString());
+            return true;
+        }
+    }
+
+    public boolean saveEvent (String formattedDate, int code, int bgl, String diet, String exercise, String medication) {
+        //String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(Calendar.getInstance().getTime());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        long index = getEntryCount();
+
+        ContentValues cv = new ContentValues();
+
+        cv.put("Event", index);
+        cv.put("DateTime", formattedDate);
+        cv.put("EventCode", code);
+        cv.put("BGL", bgl);
+        cv.put("Diet", diet);
+        cv.put("Exercise", exercise);
+        cv.put("Medication", medication);
+
+        //Log.v("DB EVENT", index + "\t" + formattedDate + "\t" + code + "\t" +bgl + "\t" + diet + "\t" + exercise + "\t" + medication);
+
+        long res = db.insert(DATABASE_TABLE, null, cv);
+
+        if( res == -1 )
+            return false;
+        else {
+            Log.v("DB EVENT", index + "\t" + formattedDate + "\t" + code + "\t" +bgl + "\t" + diet + "\t" + exercise + "\t" + medication);
             return true;
         }
 
@@ -155,12 +195,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             do {
                 DiabeticEntry entry = new DiabeticEntry();
-                entry.setTime(cursor.getString(0));
-                entry.setCode(cursor.getInt(1));
-                entry.setBGL(cursor.getInt(2));
-                entry.setDiet(cursor.getString(3));
-                entry.setExercise(cursor.getString(4));
-                entry.setMedication(cursor.getString(5));
+                entry.setIndex(cursor.getLong(0));
+                entry.setTime(cursor.getString(1));
+                entry.setCode(cursor.getInt(2));
+                entry.setBGL(cursor.getInt(3));
+                entry.setDiet(cursor.getString(4));
+                entry.setExercise(cursor.getString(5));
+                entry.setMedication(cursor.getString(6));
 
                 //ADD TO THE QUERY LIST
                 dbList.add(entry);

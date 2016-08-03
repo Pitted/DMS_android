@@ -41,44 +41,105 @@
         <activity
             android:name=".BGLStatsActivity"
             android:label="@string/bgl_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+        </activity>
+        <!-- logging activities-->
         <activity
             android:name=".NutritionStatsActivity"
             android:label="@string/nutrition_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".FitnessStatsActivity"
             android:label="@string/fitness_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MedicationStatsActivity"
             android:label="@string/medication_name"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".StatsSortActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:label="@string/stats_name">
+        </activity>
+
+        <!--prescription activities-->
         <activity
             android:name=".BGLScriptActivity"
-            android:label="@string/bgl_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NutritionScriptActivity"
             android:label="@string/nutrition_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MedicationScriptActivity"
             android:label="@string/medication_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <!--<activity-->
+            <!--android:name=".GraphActivity"-->
+            <!--android:label="@string/graph_name"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/AppTheme" />-->
         <activity
-            android:name=".GraphActivity"
-            android:label="@string/graph_name"
+            android:name=".AddDataActivity"/>
+
+        <activity
+            android:name=".FitnessScriptActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".AddDataActivity"></activity>
+            android:label="@string/fitness_name">
+        </activity>
+
+        <!--<activity-->
+            <!--android:name=".MedicationScriptActivity"-->
+            <!--android:theme="@style/AppTheme"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:label="@string/medication_name">-->
+        <!--</activity>-->
+
+        <!--prescription view/edit activities-->
+        <activity
+            android:name=".BGLScriptViewActivity"
+            android:label="@string/bgl_name"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".MedicationScriptViewActivity"
+            android:label="@string/medication_name"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".FitnessScriptViewActivity"
+            android:label="@string/fitness_name"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".NutritionScriptViewActivity"
+            android:label="@string/medication_name"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".PrescriptionStatsActivity"
+            android:label="@string/Prescriptionstats_name"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+        </activity>
+
     </application>
 
 </manifest>

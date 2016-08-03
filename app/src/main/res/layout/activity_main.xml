@@ -38,6 +38,8 @@
         android:text="Nutrition"
         android:id="@+id/Nutritionbutton"
 
+        android:height="90dp"
+        android:width="160dp"
         android:textSize="30dp"
         android:layout_below="@+id/BGLbutton"
         android:layout_alignParentLeft="true"
@@ -54,7 +56,8 @@
         android:layout_height="wrap_content"
         android:text="Fitness"
         android:id="@+id/Fitnessbutton"
-
+        android:height="90dp"
+        android:width="160dp"
         android:textSize="30dp"
         android:layout_below="@+id/FitnessSave_btn"
         android:layout_alignParentLeft="true"
@@ -72,6 +75,8 @@
         android:text="Medication"
         android:id="@+id/Medicationbutton"
 
+        android:height="90dp"
+        android:width="160dp"
         android:textSize="30dp"
         android:layout_below="@+id/Fitnessbutton"
         android:layout_alignParentLeft="true"
@@ -84,8 +89,10 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Graph Stats"
-        android:id="@+id/Graphbutton"
+        android:text="Stats"
+        android:id="@+id/Statsbutton"
+        android:height="90dp"
+        android:width="160dp"
         android:textSize="30dp"
         android:layout_below="@+id/Medicationbutton"
         android:layout_alignParentLeft="true"
@@ -99,9 +106,12 @@
         android:layout_height="wrap_content"
         android:text="Input Events"
         android:textSize="16dp"
+        android:height="50dp"
+        android:width="160dp"
         android:id="@+id/input_events_button"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:textAllCaps="false"
         />
+
 </LinearLayout>

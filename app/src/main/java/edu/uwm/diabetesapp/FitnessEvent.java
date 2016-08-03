@@ -1,26 +1,19 @@
 package edu.uwm.diabetesapp;
+import java.util.Calendar;
 
-/**
- * Created by Lenovo on 7/15/2016.
- */
 public class FitnessEvent extends DataEvent {
+
+
+
 
     private int qty;
     private String exercise;
     private String fitnessEvent;
+    //private String dateTime;
+    private Calendar eventDateTime;
 
     public FitnessEvent() {
         fitnessEvent = null;
-    }
-
-
-
-    public void setQty(int amount){
-        qty = amount;
-    }
-
-    public int getQty(){
-        return qty;
     }
 
     public void setExercise(String exercises){
@@ -29,12 +22,22 @@ public class FitnessEvent extends DataEvent {
 
     public String getExercise(){return exercise;}
 
-
-    public void setFitnessEvent(int qty, String item){
-        fitnessEvent = qty + " " + item;
+    public void setEventDateTime(Calendar eventdatetime){eventDateTime = eventdatetime;}
+    public void setEventDateTime(int hour,int minute){
+        eventDateTime.set(Calendar.HOUR_OF_DAY,hour);
+        eventDateTime.set(Calendar.MINUTE,minute);
+    }
+    public void setEventDateTime(int year,int month, int day){
+        eventDateTime.set(Calendar.YEAR,year);
+        eventDateTime.set(Calendar.MONTH,month);
+        eventDateTime.set(Calendar.DAY_OF_MONTH,day);
+    }
+    public Calendar getEventDateTime(){
+        return eventDateTime;
     }
 
-    public String getFitnessEvent() {
-        return fitnessEvent;
+    public void setFitnessEvent(int i, String s) {
+        qty = i;
+        exercise = s;
     }
 }
