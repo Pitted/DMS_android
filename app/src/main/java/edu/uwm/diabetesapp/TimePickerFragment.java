@@ -42,7 +42,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
-
         Bundle bundle = this.getArguments();
         if(bundle != null) {
             picker = bundle.getInt("TIME", 1); //if there are multiple pickers, track it so we can return to teh right button upon DateSet

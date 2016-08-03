@@ -8,7 +8,7 @@
         android:layout_height="wrap_content" 
         android:src="@drawable/pill"
         android:layout_gravity="center"
-
+        android:layout_weight="1"
         />
     <EditText
         android:layout_width="wrap_content"
@@ -28,8 +28,29 @@
         android:hint="description"
         android:textSize="14dp"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:textAllCaps="false"
+        android:text="select date"
+        android:onClick="showDatePickerDialog"
+        android:id="@+id/date_btn"
+        android:textSize="14dp"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="select time"
+        android:textAllCaps="false"
+        android:onClick="showTimePickerDialog"
+        android:id="@+id/time_btn"
+        android:textSize="14dp"
+         />
     <CheckBox
-        android:layout_width="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
         android:layout_weight="1"

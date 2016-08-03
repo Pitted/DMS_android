@@ -11,6 +11,7 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -61,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + DATABASE_TABLE +
-                "(Event INTEGER PRIMARY KEY, " +
+                "(Event BIGINT PRIMARY KEY, " +
                 "DateTime TEXT," +
                 "EventCode INTEGER," +
                 "BGL INTEGER," +
@@ -78,31 +79,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public boolean saveEvent(DataEvent event) {
-        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
+
         ContentValues cv = new ContentValues();
         if (event instanceof BGLLevel) {
-            cv.put("DateTime", timestamp);
+            cv.put("DateTime", (new AppHelpers()).formatDateTime(((BGLLevel) event).getEventDateTime()));
+            cv.put("Event", getEntryCount());
             cv.put("EventCode", 0);
             cv.put("BGL", (((BGLLevel) event).getBGL()));
             cv.put("Diet", "");
             cv.put("Exercise", "");
             cv.put("Medication", "");
         } else if (event instanceof MedicationEvent) {
-            cv.put("DateTime", timestamp);
+            cv.put("DateTime", (new AppHelpers()).formatDateTime(((MedicationEvent) event).getEventDateTime()));
+            cv.put("Event", getEntryCount());
             cv.put("EventCode", 3);
             cv.put("BGL", "");
             cv.put("Diet", "");
             cv.put("Exercise", "");
             cv.put("Medication", (((MedicationEvent) event).getMedicationEvent()));
         } else if (event instanceof NutritionEvent) {
-            cv.put("DateTime", timestamp);
+            cv.put("DateTime", (new AppHelpers()).formatDateTime(((NutritionEvent) event).getEventDateTime()));
+            cv.put("Event", getEntryCount());
             cv.put("EventCode", 1);
             cv.put("BGL", "");
             cv.put("Diet", ((NutritionEvent) event).getNutritionEvent());
             cv.put("Exercise", "");
             cv.put("Medication", "");
         } else {
-            cv.put("DateTime", timestamp);
+            cv.put("DateTime", (new AppHelpers()).formatDateTime(((FitnessEvent) event).getEventDateTime()));
+            cv.put("Event", getEntryCount());
             cv.put("EventCode", 2);
             cv.put("BGL", "");
             cv.put("Diet", "");
@@ -115,6 +120,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.v("DB EVENT", cv.toString());
             return true;
         }
+    }
+    public Cursor getBGLEvents(){
+        return this.getReadableDatabase().rawQuery("select * from" + DATABASE_TABLE + "where EventCode == 0", null);
+    }
+    public Cursor getMedicationEvents(){
+        return this.getReadableDatabase().rawQuery("select * from" + DATABASE_TABLE + "where EventCode == 3", null);
+    }
+    public Cursor getFitnessEvents(){
+        return this.getReadableDatabase().rawQuery("select * from" + DATABASE_TABLE + "where EventCose == 2", null);
+    }
+    public Cursor getNutritionEvents(){
+        return this.getReadableDatabase().rawQuery("select * from" + DATABASE_TABLE + "where EventCode == 1", null);
     }
 
     public boolean saveEvent (String formattedDate, int code, int bgl, String diet, String exercise, String medication) {

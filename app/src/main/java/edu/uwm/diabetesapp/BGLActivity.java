@@ -152,10 +152,10 @@ public class BGLActivity extends Activity
 
     //~~ method for saving the BGL event~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private void saveBGL(){
-//        boolean saved = diabeticdb.saveEvent(bglLevel);
+        boolean saved = diabeticdb.saveEvent(bglLevel);
           //int code, int bgl, String diet, String exercise, String medication
         //bglLevel.setTime(bglTime.getText().toString()); //in case the user didn't change it
-        boolean saved = diabeticdb.saveEvent(helper.formatDateTime(bglLevel.getEventDateTime()), 0,bglLevel.getBGL(),null,null,null);
+       // boolean saved = diabeticdb.saveEvent(helper.formatDateTime(bglLevel.getEventDateTime()), 0,bglLevel.getBGL(),null,null,null);
         //String dateTime, int code, int bgl, String diet, String exercise, String medication
         if( saved == true )
             Toast.makeText(BGLActivity.this, "BGL Saved", Toast.LENGTH_LONG).show();

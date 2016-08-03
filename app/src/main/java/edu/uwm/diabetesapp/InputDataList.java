@@ -1,5 +1,6 @@
 package edu.uwm.diabetesapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -41,25 +42,25 @@ public class InputDataList extends ListView {
         createBGL.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                 adapter.add(((AddDataHeader) header).createBGLElement(context));
+                 adapter.add(((AddDataHeader) header).createBGLElement(context, (Activity)context));
             }
         });
         createMedication.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.add(((AddDataHeader) header).createMedicationElement(context));
+                adapter.add(((AddDataHeader) header).createMedicationElement(context, (Activity)context));
             }
         });
         createMeal.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.add(((AddDataHeader) header).createMealElement(context));
+                adapter.add(((AddDataHeader) header).createMealElement(context, (Activity)context));
             }
         });
         createExercise.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.add(((AddDataHeader) header).createFitnessElemnet(context));
+                adapter.add(((AddDataHeader) header).createFitnessElemnet(context, (Activity)context));
             }
         });
     }

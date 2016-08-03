@@ -11,7 +11,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-public class AddDataActivity extends Activity {
+public class AddDataActivity extends Activity
+        implements TimePickerFragment.OnTimePickedListener, DatePickerFragment.OnDatePickedListener {
 
 
 
@@ -31,6 +32,17 @@ public class AddDataActivity extends Activity {
                 ((InputDataList)data_list).save();
             }
         });
+
+    }
+
+    public void onTimePicked(int picker, int hour, int minute) {
+        //TODO figure out how to call child onTimePicked
+    }
+
+    //~~method when a date is picked~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    public void onDatePicked(int picker, int year, int month, int day) {
+        //TODO figure out how to call child onDatePicked
 
     }
 

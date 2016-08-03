@@ -1,7 +1,8 @@
 package edu.uwm.diabetesapp;
 import java.util.Calendar;
 
-public class NutritionEvent extends DataEvent {
+public class NutritionEvent extends DataEvent
+        implements TimePickerFragment.OnTimePickedListener, DatePickerFragment.OnDatePickedListener{
 
     private int qty;
     private String nutrition;
@@ -50,4 +51,13 @@ public class NutritionEvent extends DataEvent {
         return eventDateTime;
     }
 
+    @Override
+    public void onDatePicked(int picker, int year, int month, int dayOfMonth) {
+
+    }
+
+    @Override
+    public void onTimePicked(int picker, int hour, int minute) {
+
+    }
 }
