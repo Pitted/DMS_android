@@ -70,6 +70,11 @@ public class MainActivity extends Activity {
                 startActivity(gotoStats);
             }
         });
+
+        //~~ set up the notifier service~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        Intent intent = new Intent(this, NotifierService2.class);
+        startService(intent);
+
     }//end OnCreate
 
     /*

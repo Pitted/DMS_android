@@ -147,6 +147,10 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
         </activity>
+        <service
+            android:name=".NotifierService2"
+            android:exported="false">
+        </service>
 
     </application>
 </manifest>

@@ -143,6 +143,43 @@ public class PrescriptionDatabaseHelper2 extends SQLiteOpenHelper {
     public void editDatabase(){
 
     }
+    public boolean forwardPrescription(int index){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        long currentTime = System.currentTimeMillis()/1000;
+        long nextOccurrence;
+        long frequency;
+
+
+        String query= "SELECT NextOccurrence, Frequency from " + DATABASE_TABLE + " where id = " + index + ";";
+
+        Cursor result = db.rawQuery(query,null);
+        if (result!=null){
+            result.moveToFirst();
+            nextOccurrence = Long.valueOf(result.getString(0));
+            frequency  = Long.valueOf(result.getString(1));
+        } else {
+            db.close();
+            nextOccurrence = 0;
+            frequency = 0;
+
+        }
+
+        do { //in case some were missed because the device was off, update to the current time minimum
+            nextOccurrence+=frequency*60; //frequency is in minutes, convert to seconds
+        } while (nextOccurrence <= currentTime);
+
+
+        cv.put("NextOccurrence",nextOccurrence);
+        long res = db.update(DATABASE_TABLE, cv, "id = " + index, null);
+        if( res == -1 )
+            return false;
+        else {
+            Log.v("FORWARD PRESCRIPTION", index + "\t" + nextOccurrence + "\t" + frequency);
+            return true;
+        }
+    }
+
 }
 
 
