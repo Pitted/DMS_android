@@ -7,7 +7,7 @@
     <string name="stats_name">Stats</string>
     <string name="Prescriptionstats_name">Prescription</string>
     <string name="bgl_string">BGL: 40mg/dl</string>
-
+    <string name="bglUnit">mg/dl</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

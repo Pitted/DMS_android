@@ -31,6 +31,14 @@ public class NutritionEvent extends DataEvent
 
     public void setNutritionEvent(int qty, String item){
         nutritionEvent = qty + " servings " + item;
+        this.qty = qty;
+        nutrition = item;
+    }
+    public void fromString(String s){
+        //format should be same as nustritionEvent
+        String [] values = s.split(" servings ");
+        qty = Integer.parseInt(values[0]);
+        nutrition = values[1];
     }
 
     public String getNutritionEvent() {
@@ -59,5 +67,12 @@ public class NutritionEvent extends DataEvent
     @Override
     public void onTimePicked(int picker, int hour, int minute) {
 
+    }
+
+    public String toString(){
+        String time = eventDateTime.HOUR_OF_DAY + ":" + eventDateTime.MINUTE ;
+        String date = (eventDateTime.MONTH + 1) + "/" + eventDateTime.DAY_OF_MONTH + "/" + eventDateTime.YEAR;
+
+        return "Consumed " + qty + "calories at " + time + " on " + date + "\nDescription: " + nutrition;
     }
 }

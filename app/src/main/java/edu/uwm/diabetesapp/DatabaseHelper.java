@@ -62,8 +62,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + DATABASE_TABLE +
-                "(Event BIGINT PRIMARY KEY, " +
-                "DateTime TEXT," +
+                "(_id BIGINT PRIMARY KEY, " +
+                "DateTime DATETIME," +
                 "EventCode INTEGER," +
                 "BGL INTEGER," +
                 "Diet TEXT," +
@@ -83,7 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         if (event instanceof BGLLevel) {
             cv.put("DateTime", (new AppHelpers()).formatDateTime(((BGLLevel) event).getEventDateTime()));
-            cv.put("Event", getEntryCount());
+            cv.put("_id", getEntryCount());
             cv.put("EventCode", 0);
             cv.put("BGL", (((BGLLevel) event).getBGL()));
             cv.put("Diet", "");
@@ -91,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put("Medication", "");
         } else if (event instanceof MedicationEvent) {
             cv.put("DateTime", (new AppHelpers()).formatDateTime(((MedicationEvent) event).getEventDateTime()));
-            cv.put("Event", getEntryCount());
+            cv.put("_id", getEntryCount());
             cv.put("EventCode", 3);
             cv.put("BGL", "");
             cv.put("Diet", "");
@@ -99,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put("Medication", (((MedicationEvent) event).getMedicationEvent()));
         } else if (event instanceof NutritionEvent) {
             cv.put("DateTime", (new AppHelpers()).formatDateTime(((NutritionEvent) event).getEventDateTime()));
-            cv.put("Event", getEntryCount());
+            cv.put("_id", getEntryCount());
             cv.put("EventCode", 1);
             cv.put("BGL", "");
             cv.put("Diet", ((NutritionEvent) event).getNutritionEvent());
@@ -107,7 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put("Medication", "");
         } else {
             cv.put("DateTime", (new AppHelpers()).formatDateTime(((FitnessEvent) event).getEventDateTime()));
-            cv.put("Event", getEntryCount());
+            cv.put("_id", getEntryCount());
             cv.put("EventCode", 2);
             cv.put("BGL", "");
             cv.put("Diet", "");

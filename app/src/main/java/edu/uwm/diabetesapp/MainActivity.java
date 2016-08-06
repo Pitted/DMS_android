@@ -77,16 +77,16 @@ public class MainActivity extends Activity {
                 Intent gotoAddData = new Intent(MainActivity.this, AddDataActivity.class);
                 startActivity(gotoAddData);
             }
-                }
-        );
-    }
-    //end OnCreate
-
+        });
         //~~ set up the notifier service~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Intent intent = new Intent(this, NotifierService2.class);
         startService(intent);
-
     }
+    //end OnCreate
+
+
+
+}
 
     /*
     @Override
@@ -96,4 +96,4 @@ public class MainActivity extends Activity {
         return true;
     }*/
 
-}//end class
+//end class

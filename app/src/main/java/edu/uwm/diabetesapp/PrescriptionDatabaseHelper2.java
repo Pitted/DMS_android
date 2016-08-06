@@ -183,4 +183,4 @@ public class PrescriptionDatabaseHelper2 extends SQLiteOpenHelper {
 }
 
 
->>>>>>> TheIndustrialist-marksdesign:app/src/main/java/edu/uwm/diabetesapp/PrescriptionDatabaseHelper.java
+

@@ -45,4 +45,16 @@ public class MedicationEvent extends DataEvent {
         return eventDateTime;
     }
 
+    public String toString(){
+        String time = eventDateTime.HOUR_OF_DAY + ":" + eventDateTime.MINUTE ;
+        String date = (eventDateTime.MONTH + 1) + "/" + eventDateTime.DAY_OF_MONTH + "/" + eventDateTime.YEAR;
+
+        return medicationEvent + " at " + time + " on " + date ;
+    }
+    public void fromString(String s){
+        //s should be format of medicationEvent
+        String[] values = s.split("mg of ");
+        qty = Integer.parseInt(values[0]);
+        medication = values[1];
+    }
 }
