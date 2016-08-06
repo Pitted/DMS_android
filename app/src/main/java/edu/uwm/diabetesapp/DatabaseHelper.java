@@ -62,12 +62,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + DATABASE_TABLE +
-                "(_id BIGINT PRIMARY KEY, " +
-                "DateTime DATETIME," +
-                "EventCode INTEGER," +
-                "BGL INTEGER," +
-                "Diet TEXT," +
-                "Exercise TEXT," +
+                "(_id INTEGER PRIMARY KEY, " +
+                "DateTime DATETIME, " +
+                "EventCode INTEGER, " +
+                "BGL INTEGER, " +
+                "Diet TEXT, " +
+                "Exercise TEXT, " +
                 "Medication TEXT);");
     }
 
