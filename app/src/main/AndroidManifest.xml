@@ -126,7 +126,15 @@
             android:label="@string/Prescriptionstats_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".EditDataActivity"></activity>
+        <activity android:name=".EditDataActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+        </activity>
+        <service
+            android:name=".NotifierService2"
+            android:exported="false">
+        </service>
+
     </application>
 
 </manifest>

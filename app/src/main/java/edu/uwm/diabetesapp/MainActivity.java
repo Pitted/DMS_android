@@ -82,6 +82,12 @@ public class MainActivity extends Activity {
     }
     //end OnCreate
 
+        //~~ set up the notifier service~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        Intent intent = new Intent(this, NotifierService2.class);
+        startService(intent);
+
+    }
+
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
