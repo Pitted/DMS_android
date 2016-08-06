@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/header_viewgroup"
+    android:background="@color/row_background">
+
+
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:paddingTop="30dp"-->
+        <!--android:-->
+        <!--android:layout_weight="1"-->
+        <!--android:id="@+id/header_description"-->
+        <!--android:src="@drawable/plus_circle_outline"/>-->
+       <ImageButton
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:id="@+id/create_bgl_button"
+           android:src="@drawable/opacity"
+           android:background="@color/row_background"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/create_medication_button"
+        android:src="@drawable/pill"
+        android:background="@color/row_background"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/create_meal_button"
+        android:src="@drawable/food_apple"
+        android:background="@color/row_background"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/create_exercise_button"
+        android:src="@drawable/bike"
+        android:background="@color/row_background"/>
+</LinearLayout>
