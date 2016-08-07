@@ -25,7 +25,9 @@ public class MedicationEvent extends DataEvent {
     public String getMedication(){return medication;}
 
     public void setMedicationEvent(int qty, String item){
-        medicationEvent = qty + " mg of " + item;
+        this.qty = qty;
+        medication = item;
+        medicationEvent = qty + " mg of " + medication;
     }
     public String getMedicationEvent() {
         return medicationEvent;
@@ -53,8 +55,9 @@ public class MedicationEvent extends DataEvent {
     }
     public void fromString(String s){
         //s should be format of medicationEvent
-        String[] values = s.split("mg of ");
+        String[] values = s.split(" mg of ");
         qty = Integer.parseInt(values[0]);
         medication = values[1];
+        medicationEvent = s;
     }
 }

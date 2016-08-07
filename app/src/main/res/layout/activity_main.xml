@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:text="Stats"
         android:id="@+id/Statsbutton"
-        android:height="90dp"
+        android:height="70dp"
         android:width="160dp"
         android:textSize="30dp"
         android:layout_below="@+id/Medicationbutton"
@@ -101,17 +101,31 @@
         android:textAllCaps="false"
         android:layout_weight="1"/>
         <!--android:drawableLeft="@drawable/graph"-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Input Events"
         android:textSize="16dp"
         android:height="50dp"
-        android:width="160dp"
         android:id="@+id/input_events_button"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:textAllCaps="false"
         />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Events"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/edit_events_button"/>
+    </LinearLayout>
+
 
 </LinearLayout>

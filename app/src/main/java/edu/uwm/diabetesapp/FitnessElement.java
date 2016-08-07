@@ -6,6 +6,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +55,7 @@ public class FitnessElement extends AddDataElement
     public boolean save(){
         if(((CheckBox) findViewById(R.id.fitness_checkbox)).isChecked()) {
             try {
-                fit.setFitnessEvent(Integer.parseInt(((TextView)findViewById(R.id.fitness_input_qty)).getText().toString()), findViewById(R.id.fitness_input_desc).toString());
+                fit.setFitnessEvent(Integer.parseInt(((TextView) findViewById(R.id.fitness_input_qty)).getText().toString()), ((EditText)findViewById(R.id.fitness_input_desc)).getText().toString());
             } catch (NumberFormatException e) {
                 return false;
             }

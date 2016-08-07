@@ -6,7 +6,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +57,7 @@ public class DietElement  extends AddDataElement
         if (((CheckBox) findViewById(R.id.meal_checkbox)).isChecked()) {
 
             try {
-                meal.setNutritionEvent(Integer.parseInt(((TextView) findViewById(R.id.meal_input_qty)).getText().toString()), findViewById(R.id.meal_input_desc).toString());
+                meal.setNutritionEvent(Integer.parseInt(((TextView) findViewById(R.id.meal_input_qty)).getText().toString()), ((EditText)findViewById(R.id.meal_input_desc)).getText().toString());
             } catch (NumberFormatException e) {
                 return false;
             }

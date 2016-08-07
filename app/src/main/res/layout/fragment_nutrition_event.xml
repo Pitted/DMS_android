@@ -4,10 +4,48 @@
     android:layout_height="match_parent"
     tools:context="edu.uwm.diabetesapp.NutritionEventFrag">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="QTY"
+        android:id="@+id/nutrition_qty"
+        android:layout_marginRight="75dp"
+        android:layout_marginBottom="75dp"
+        android:layout_gravity="center|center_vertical" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nutrition_desc"
+        android:hint="Description"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="75dp"
+        android:layout_gravity="center|center_vertical" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:id="@+id/nutrition_time_btn"
+        android:layout_marginRight="75dp"
+        android:layout_gravity="center"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:layout_marginLeft="75dp"
+        android:id="@+id/nutrition_date_btn"
+        android:layout_gravity="center" />
+    <ImageButton
+        android:layout_width="47dp"
+        android:layout_height="47dp"
+        android:id="@+id/nutr_frag_save"
+        android:src="@drawable/check_circle_outline"
+        android:background="@color/main_window_BG_color"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginTop="75dp"/>
 
 </FrameLayout>

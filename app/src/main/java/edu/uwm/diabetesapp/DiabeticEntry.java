@@ -94,7 +94,6 @@ public class DiabeticEntry {
         time.setTime(new SimpleDateFormat("hh:mm aa EEE, MMM dd, yyyy").parse(timestamp));
         }catch (ParseException e) {
             throw new ParseException("Date from DB is not in AppHelperFormat", e.getErrorOffset());
-
         }
         switch (code){
             case 0: obj = new BGLLevel();

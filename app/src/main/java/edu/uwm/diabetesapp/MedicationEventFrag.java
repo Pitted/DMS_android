@@ -1,12 +1,24 @@
 package edu.uwm.diabetesapp;
 
+import android.app.DatePickerDialog;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TimePicker;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 /**
@@ -17,15 +29,29 @@ import android.view.ViewGroup;
  * Use the {@link MedicationEventFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MedicationEventFrag extends Fragment {
+public class MedicationEventFrag extends android.app.DialogFragment
+        implements DialogInterface.OnCancelListener, DialogInterface.OnDismissListener, TimePickerFragment.OnTimePickedListener, DatePickerFragment.OnDatePickedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
+
+    public interface OnSaveListener{
+        public void onSave(MedicationEvent obj, long _id);
+    }
+
+    private OnSaveListener mCallBack;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
+    private MedicationEvent med;
+    private Button dateBtn;
+    private Button timeBtn;
+    private ImageButton save;
+    private EditText qty;
+    private EditText desc;
+    private AppHelpers helper;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int mParam1;
 
     private OnFragmentInteractionListener mListener;
 
@@ -38,15 +64,13 @@ public class MedicationEventFrag extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment MedicationEventFrag.
      */
     // TODO: Rename and change types and number of parameters
-    public static MedicationEventFrag newInstance(String param1, String param2) {
+    public static MedicationEventFrag newInstance(long param1) {
         MedicationEventFrag fragment = new MedicationEventFrag();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putLong("_id", param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,9 +79,64 @@ public class MedicationEventFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getInt("_id", 0);
         }
+        dateBtn = (Button) getActivity().findViewById(R.id.medication_date_btn);
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(v);
+            }
+        });
+        timeBtn = (Button) getActivity().findViewById(R.id.medicatoin_time_btn);
+        timeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog(v);
+            }
+        });
+        qty = (EditText) getActivity().findViewById(R.id.medication_qty);
+        desc = (EditText) getActivity().findViewById(R.id.medication_desc);
+        save = (ImageButton) getActivity().findViewById(R.id.med_frag_save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                med.setMedicationEvent(Integer.parseInt(qty.getText().toString()), desc.getText().toString());
+            }
+        });
+    }
+
+    public void setMedication(MedicationEvent obj){
+        med = obj;
+        setFields();
+    }
+    public void setFields(){
+        qty.setText(med.getQty());
+        desc.setText(med.getMedication());
+        dateBtn.setText(new SimpleDateFormat("MM/dd/YY").format(med.getEventDateTime()));
+        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(med.getEventDateTime()));
+    }
+    private void showDatePickerDialog(View v) {
+        if(med.getEventDateTime() != null){
+            Calendar c = med.getEventDateTime();
+            DatePickerDialog datePicker = new DatePickerDialog(getActivity(),this,c.get(Calendar.YEAR),c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            datePicker.show();
+        }else{
+            DialogFragment newDateFragment = new DatePickerFragment();
+            newDateFragment.show(getFragmentManager(), "datePicker");
+        }
+    }
+
+    private void showTimePickerDialog(View v) {
+        if(med.getEventDateTime() != null){
+            Calendar c = med.getEventDateTime();
+            TimePickerDialog timePicker = new TimePickerDialog(getActivity(), this, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
+            timePicker.show();
+        }else{
+            DialogFragment newTimeFragment = new TimePickerFragment();
+            newTimeFragment.show(getFragmentManager(), "timePicker");
+        }
+
     }
 
     @Override
@@ -83,12 +162,52 @@ public class MedicationEventFrag extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        if(context instanceof OnSaveListener){
+            mCallBack = (OnSaveListener) context;
+        }else{
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentSaveListener");
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+
+    }
+
+    @Override
+    public void onDatePicked(int picker, int year, int month, int dayOfMonth) {
+        med.setEventDateTime(year, month, dayOfMonth);
+        setFields();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        med.setEventDateTime(year, monthOfYear, dayOfMonth);
+        setFields();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+
+    }
+
+    @Override
+    public void onTimePicked(int picker, int hour, int minute) {
+        med.setEventDateTime(hour, minute);
+        setFields();
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        med.setEventDateTime(hourOfDay, minute);
+        setFields();
     }
 
     /**
@@ -104,5 +223,8 @@ public class MedicationEventFrag extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    public void onSave(MedicationEvent o, long _id){
+        this.mCallBack.onSave(o, getArguments().getLong("_id"));
     }
 }

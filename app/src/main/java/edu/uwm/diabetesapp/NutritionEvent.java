@@ -34,13 +34,6 @@ public class NutritionEvent extends DataEvent
         this.qty = qty;
         nutrition = item;
     }
-    public void fromString(String s){
-        //format should be same as nustritionEvent
-        String [] values = s.split(" servings ");
-        qty = Integer.parseInt(values[0]);
-        nutrition = values[1];
-    }
-
     public String getNutritionEvent() {
         return nutritionEvent;
     }
@@ -73,6 +66,12 @@ public class NutritionEvent extends DataEvent
         String time = eventDateTime.HOUR_OF_DAY + ":" + eventDateTime.MINUTE ;
         String date = (eventDateTime.MONTH + 1) + "/" + eventDateTime.DAY_OF_MONTH + "/" + eventDateTime.YEAR;
 
-        return "Consumed " + qty + "calories at " + time + " on " + date + "\nDescription: " + nutrition;
+        return "Consumed " + qty + " calories at " + time + " on " + date + "\nDescription: " + nutrition;
+    }
+    public void fromString(String s){
+        //format should be same as nustritionEvent
+        String [] values = s.split(" servings ");
+        qty = Integer.parseInt(values[0]);
+        nutrition = values[1];
     }
 }

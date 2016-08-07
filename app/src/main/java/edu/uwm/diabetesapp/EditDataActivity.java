@@ -1,13 +1,16 @@
 package edu.uwm.diabetesapp;
 
 import android.app.Activity;
-import android.app.ListFragment;
+import android.content.DialogInterface;
+import android.net.Uri;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ImageButton;
@@ -16,7 +19,9 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 
-public class EditDataActivity extends Activity {
+public class EditDataActivity extends Activity
+        implements BGLEventFrag.OnSaveListener, MedicationEventFrag.OnSaveListener, NutritionEventFrag.OnSaveListener, FitnessEventFrag.OnSaveListener,
+BGLEventFrag.OnFragmentInteractionListener, MedicationEventFrag.OnFragmentInteractionListener, NutritionEventFrag.OnFragmentInteractionListener, FitnessEventFrag.OnFragmentInteractionListener{
 
     private DatabaseHelper db;
     private Cursor cursor;
@@ -38,7 +43,7 @@ public class EditDataActivity extends Activity {
         list = (ListView) findViewById(R.id.edit_data_list);
         db = DatabaseHelper.getInstance(this);
         cursor = db.getBGLEvents();
-        adapter = new CursorAdapter(list.getContext(), cursor, false) {
+        adapter = new CursorAdapter(this, cursor, false) {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup parent) {
                 return new TextView(context);
@@ -48,6 +53,7 @@ public class EditDataActivity extends Activity {
             public void bindView(View view, Context context, Cursor cursor) {
                 DiabeticEntry entry = new DiabeticEntry(cursor.getLong(0),cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getString(4),cursor.getString(5), cursor.getString(6));
                 TextView txtvw = (TextView) view;
+                txtvw.setTextSize(14);
                 try {
                     txtvw.setText(entry.createEvent().toString());
                 } catch (ParseException e) {
@@ -56,7 +62,7 @@ public class EditDataActivity extends Activity {
             }
 
         };
-
+        list.setAdapter(adapter);
         viewBglBtn = (ImageButton) findViewById(R.id.view_bgl_btn);
         viewBglBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +81,7 @@ public class EditDataActivity extends Activity {
             public void onClick(View v) {
                 if(listType instanceof FitnessEvent) return;
                 else{
-                    cursor = db.getFitnessEvents();
+                    adapter.swapCursor(db.getFitnessEvents());
                     listType = new FitnessEvent();
                     adapter.notifyDataSetChanged();
                 }
@@ -87,9 +93,10 @@ public class EditDataActivity extends Activity {
             public void onClick(View v) {
                 if(listType instanceof FitnessEvent) return;
                 else{
-                    cursor = db.getNutritionEvents();
+                    adapter.swapCursor(db.getNutritionEvents());
                     listType = new NutritionEvent();
                     adapter.notifyDataSetChanged();
+
                 }
             }
         });
@@ -99,13 +106,75 @@ public class EditDataActivity extends Activity {
             public void onClick(View v) {
                 if(listType instanceof MedicationEvent) return;
                 else{
-                    cursor = db.getMedicationEvents();
+                    adapter.swapCursor(db.getMedicationEvents());
                     listType = new MedicationEvent();
                     adapter.notifyDataSetChanged();
+
                 }
+            }
+        });
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor c = (Cursor) adapter.getItem(position);
+                DiabeticEntry entry = new DiabeticEntry(cursor.getLong(0),cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getString(4),cursor.getString(5), cursor.getString(6));
+                try {
+                    DataEvent obj = entry.createEvent();
+                    if(obj instanceof BGLLevel){
+                        BGLEventFrag frag = BGLEventFrag.newInstance(c.getLong(0));
+                        frag.onCreate(frag.getArguments());
+                        frag.setBGL((BGLLevel) obj);
+                        frag.show(getFragmentManager(), "Edit BGL");
+                    }
+                    else if(obj instanceof  MedicationEvent){
+                        MedicationEventFrag frag = MedicationEventFrag.newInstance(c.getLong(0));
+                        frag.onCreate(frag.getArguments());
+                        frag.setMedication((MedicationEvent) obj);
+                        frag.show(getFragmentManager(), "Edit Medication");
+                    }
+                    else if(obj instanceof NutritionEvent){
+                        NutritionEventFrag frag = NutritionEventFrag.newInstance(c.getLong(0));
+                        frag.onCreate(frag.getArguments());
+                        frag.setNutrition((NutritionEvent) obj);
+                        frag.show(getFragmentManager(), "Edit Nutrition");
+                    }
+                    else{
+                        FitnessEventFrag frag = FitnessEventFrag.newInstance(c.getLong(0));
+                        frag.onCreate(frag.getArguments());
+                        frag.setFitness((FitnessEvent)obj);
+                        frag.show(getFragmentManager(), "Edit Fitness");
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //do nothing
+    }
+
+    @Override
+    public void onSave(BGLLevel obj, long _id) {
+
+    }
+
+    @Override
+    public void onSave(MedicationEvent obj, long _id) {
+
+    }
+
+    @Override
+    public void onSave(NutritionEvent obj, long _id) {
+
+    }
+
+    @Override
+    public void onSave(FitnessEvent obj, long _id) {
+
+    }
 }

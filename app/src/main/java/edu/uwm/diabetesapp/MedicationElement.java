@@ -6,6 +6,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +56,7 @@ public class MedicationElement extends AddDataElement
     public boolean save(){
         if(((CheckBox) findViewById(R.id.med_checkbox)).isChecked()) {
             try {
-                medication.setMedicationEvent(Integer.parseInt(((TextView)findViewById(R.id.med_input_qty)).getText().toString()), findViewById(R.id.med_input_desc).toString());
+                medication.setMedicationEvent(Integer.parseInt(((TextView)findViewById(R.id.med_input_qty)).getText().toString()), ((EditText)findViewById(R.id.med_input_desc)).getText().toString());
             } catch (NumberFormatException e) {
                 return false;
             }

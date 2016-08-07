@@ -78,6 +78,14 @@ public class MainActivity extends Activity {
                 startActivity(gotoAddData);
             }
         });
+        Button editEvents = (Button) findViewById(R.id.edit_events_button);
+        editEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoEditData = new Intent(MainActivity.this, EditDataActivity.class);
+                startActivity(gotoEditData);
+            }
+        });
         //~~ set up the notifier service~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Intent intent = new Intent(this, NotifierService2.class);
         startService(intent);

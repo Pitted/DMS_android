@@ -37,6 +37,6 @@ public class BGLLevel extends DataEvent {
     public String toString(){
         String time = eventDateTime.HOUR_OF_DAY + ":" + eventDateTime.MINUTE ;
         String date = (eventDateTime.MONTH + 1) + "/" + eventDateTime.DAY_OF_MONTH + "/" + eventDateTime.YEAR;
-        return "" + bglLevel + "mg/dl at " + time + "on " + date;
+        return "" + bglLevel + "mg/dl at " + time + " on " + date;
     }
 }

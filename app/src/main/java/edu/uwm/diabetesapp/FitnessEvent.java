@@ -37,20 +37,27 @@ public class FitnessEvent extends DataEvent {
     }
 
     public void setFitnessEvent(int i, String s) {
-        fitnessEvent = qty + "calories burned doing " + exercise;
         qty = i;
         exercise = s;
+        fitnessEvent = ("" + qty + " calories burned doing " + exercise);
+    }
+    public String getFitnessEvent(){
+        return fitnessEvent;
     }
     public String toString(){
         String time = eventDateTime.HOUR_OF_DAY + ":" + eventDateTime.MINUTE ;
         String date = (eventDateTime.MONTH + 1) + "/" + eventDateTime.DAY_OF_MONTH + "/" + eventDateTime.YEAR;
 
-        return  qty + "calories burned at " + time + " on " + date + "\nDescription: " + exercise;
+        return  qty + " calories burned at " + time + " on " + date + "\nDescription: " + exercise;
     }
     public void fromString(String s){
         //format of fitness Event
         String[] values = s.split(" calories burned doing ");
         qty = Integer.parseInt(values[0]);
         exercise = values[1];
+    }
+
+    public int getQTY() {
+        return qty;
     }
 }

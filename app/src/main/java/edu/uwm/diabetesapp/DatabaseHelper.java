@@ -111,7 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put("EventCode", 2);
             cv.put("BGL", "");
             cv.put("Diet", "");
-            cv.put("Exercise", ((FitnessEvent) event).getExercise());
+            cv.put("Exercise", ((FitnessEvent) event).getFitnessEvent());
             cv.put("Medication", "");
         }
         if (this.getWritableDatabase().insert(DATABASE_TABLE, null, cv) == -1)
@@ -122,16 +122,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
     public Cursor getBGLEvents(){
-        return this.getReadableDatabase().rawQuery("select * from" + DATABASE_TABLE + "where EventCode == 0", null);
+        return this.getReadableDatabase().rawQuery("select * from " + DATABASE_TABLE + " where EventCode == 0", null);
     }
     public Cursor getMedicationEvents(){
-        return this.getReadableDatabase().rawQuery("select * from" + DATABASE_TABLE + "where EventCode == 3", null);
+        return this.getReadableDatabase().rawQuery("select * from " + DATABASE_TABLE + " where EventCode == 3", null);
     }
     public Cursor getFitnessEvents(){
-        return this.getReadableDatabase().rawQuery("select * from" + DATABASE_TABLE + "where EventCose == 2", null);
+        return this.getReadableDatabase().rawQuery("select * from " + DATABASE_TABLE + " where EventCode == 2", null);
     }
     public Cursor getNutritionEvents(){
-        return this.getReadableDatabase().rawQuery("select * from" + DATABASE_TABLE + "where EventCode == 1", null);
+        return this.getReadableDatabase().rawQuery("select * from " + DATABASE_TABLE + " where EventCode == 1", null);
+    }
+    public boolean update(DiabeticEntry de){
+        //TODO
+        return false;
     }
 
     public boolean saveEvent (String formattedDate, int code, int bgl, String diet, String exercise, String medication) {
