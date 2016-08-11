@@ -49,7 +49,7 @@ public class MedicationEventFrag extends android.app.DialogFragment
     private EditText qty;
     private EditText desc;
     private AppHelpers helper;
-
+    private View fragView;
     // TODO: Rename and change types of parameters
     private int mParam1;
 
@@ -81,40 +81,18 @@ public class MedicationEventFrag extends android.app.DialogFragment
         if (getArguments() != null) {
             mParam1 = getArguments().getInt("_id", 0);
         }
-        dateBtn = (Button) getActivity().findViewById(R.id.medication_date_btn);
-        dateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog(v);
-            }
-        });
-        timeBtn = (Button) getActivity().findViewById(R.id.medicatoin_time_btn);
-        timeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePickerDialog(v);
-            }
-        });
-        qty = (EditText) getActivity().findViewById(R.id.medication_qty);
-        desc = (EditText) getActivity().findViewById(R.id.medication_desc);
-        save = (ImageButton) getActivity().findViewById(R.id.med_frag_save);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                med.setMedicationEvent(Integer.parseInt(qty.getText().toString()), desc.getText().toString());
-            }
-        });
+
     }
 
     public void setMedication(MedicationEvent obj){
         med = obj;
-        setFields();
+        //setFields();
     }
     public void setFields(){
-        qty.setText(med.getQty());
+        qty.setText(String.valueOf(med.getQty()));
         desc.setText(med.getMedication());
-        dateBtn.setText(new SimpleDateFormat("MM/dd/YY").format(med.getEventDateTime()));
-        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(med.getEventDateTime()));
+        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(med.getEventDateTime().getTime()));
+        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(med.getEventDateTime().getTime()));
     }
     private void showDatePickerDialog(View v) {
         if(med.getEventDateTime() != null){
@@ -143,7 +121,34 @@ public class MedicationEventFrag extends android.app.DialogFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_medication_event, container, false);
+        fragView = inflater.inflate(R.layout.fragment_medication_event, container, false);
+        dateBtn = (Button) fragView.findViewById(R.id.medication_date_btn);
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(v);
+            }
+        });
+        timeBtn = (Button) fragView.findViewById(R.id.medicatoin_time_btn);
+        timeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog(v);
+            }
+        });
+        qty = (EditText) fragView.findViewById(R.id.medication_qty);
+        desc = (EditText) fragView.findViewById(R.id.medication_desc);
+        save = (ImageButton) fragView.findViewById(R.id.med_frag_save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                med.setMedicationEvent(Integer.parseInt(qty.getText().toString()), desc.getText().toString());
+            }
+        });
+        if(med != null){
+            setFields();
+        }
+        return fragView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

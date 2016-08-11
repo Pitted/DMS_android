@@ -51,7 +51,7 @@ public class NutritionEventFrag extends DialogFragment implements DialogInterfac
     private EditText qty;
     private EditText desc;
     private AppHelpers helper;
-
+    private View fragView;
     private OnFragmentInteractionListener mListener;
 
     public NutritionEventFrag() {
@@ -79,29 +79,7 @@ public class NutritionEventFrag extends DialogFragment implements DialogInterfac
         if (getArguments() != null) {
             mParam1 = getArguments().getInt("_id");
         }
-        dateBtn = (Button) getActivity().findViewById(R.id.nutrition_date_btn);
-        dateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog(v);
-            }
-        });
-        timeBtn = (Button) getActivity().findViewById(R.id.nutrition_time_btn);
-        timeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePickerDialog(v);
-            }
-        });
-        qty = (EditText) getActivity().findViewById(R.id.nutrition_qty);
-        desc = (EditText) getActivity().findViewById(R.id.nutrition_desc);
-        save = (ImageButton) getActivity().findViewById(R.id.nutr_frag_save);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nut.setNutritionEvent(Integer.parseInt(qty.getText().toString()), desc.getText().toString());
-            }
-        });
+
     }
 
     private void showTimePickerDialog(View v) {
@@ -130,7 +108,34 @@ public class NutritionEventFrag extends DialogFragment implements DialogInterfac
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nutrition_event, container, false);
+        fragView = inflater.inflate(R.layout.fragment_nutrition_event, container, false);
+        dateBtn = (Button) fragView.findViewById(R.id.nutrition_date_btn);
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(v);
+            }
+        });
+        timeBtn = (Button) fragView.findViewById(R.id.nutrition_time_btn);
+        timeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog(v);
+            }
+        });
+        qty = (EditText) fragView.findViewById(R.id.nutrition_qty);
+        desc = (EditText) fragView.findViewById(R.id.nutrition_desc);
+        save = (ImageButton) fragView.findViewById(R.id.nutr_frag_save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nut.setNutritionEvent(Integer.parseInt(qty.getText().toString()), desc.getText().toString());
+            }
+        });
+        if(nut != null){
+            setFields();
+        }
+        return fragView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -171,7 +176,7 @@ public class NutritionEventFrag extends DialogFragment implements DialogInterfac
     @Override
     public void onDatePicked(int picker, int year, int month, int dayOfMonth) {
         nut.setEventDateTime(year, month+1, dayOfMonth);
-        setFields();
+        //setFields();
     }
 
     public void setNutrition(NutritionEvent o){
@@ -179,10 +184,10 @@ public class NutritionEventFrag extends DialogFragment implements DialogInterfac
         setFields();
     }
     private void setFields() {
-        qty.setText(nut.getQty());
+        qty.setText(String.valueOf(nut.getQty()));
         desc.setText(nut.getNutrition());
-        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(nut.getEventDateTime()));
-        dateBtn.setText(new SimpleDateFormat("MM/dd/YY").format(nut.getEventDateTime()));
+        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(nut.getEventDateTime().getTime()));
+        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(nut.getEventDateTime().getTime()));
     }
 
     @Override

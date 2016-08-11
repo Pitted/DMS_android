@@ -1,8 +1,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="edu.uwm.diabetesapp.BGLEventFrag">
+    android:layout_height= "match_parent"
+    android:minWidth="500dp"
+    android:minHeight="400dp"
+    android:layout_gravity="center"
+    tools:context="edu.uwm.diabetesapp.BGLEventFrag"
+    android:background="@color/row_background">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -39,7 +43,7 @@
         android:layout_height="47dp"
         android:id="@+id/bgl_frag_save"
         android:src="@drawable/check_circle_outline"
-        android:background="@color/main_window_BG_color"
+        android:background="@color/row_background"
         android:layout_gravity="center_horizontal|center"
         android:layout_marginTop="75dp"/>
 

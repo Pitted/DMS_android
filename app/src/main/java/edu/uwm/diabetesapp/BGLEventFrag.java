@@ -13,12 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import static android.view.ViewGroup.*;
 
 
 /**
@@ -45,11 +48,12 @@ public class BGLEventFrag extends DialogFragment
     private Button dateBtn;
     private Button timeBtn;
     private ImageButton save;
-    private TextView bgl_lvl;
+    private EditText bgl_lvl;
     private AppHelpers helper;
+    private View fragView;
 
     // TODO: Rename and change types of parameters
-    private int mParam1;
+    private long mParam1;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,38 +81,44 @@ public class BGLEventFrag extends DialogFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-             mParam1= getArguments().getInt("_id", 0);
+             mParam1 = getArguments().getLong("_id", 0);
         }
-        dateBtn = (Button) getActivity().findViewById(R.id.bgl_date_button);
-        dateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog(v);
-            }
-        });
-        timeBtn = (Button) getActivity().findViewById(R.id.bgl_time_button);
-        timeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePickerDialog(v);
-            }
-        });
-        bgl_lvl = (TextView) getActivity().findViewById(R.id.bgl_value);
-        save = (ImageButton) getActivity().findViewById(R.id.bgl_frag_save);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bgl.setBGL(Double.parseDouble(bgl_lvl.getText().toString()));
-            }
-        });
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bglevent, container, false);
+        fragView = inflater.inflate(R.layout.fragment_bglevent, container, false);
+        dateBtn = (Button) fragView.findViewById(R.id.bgl_date_button);
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(v);
+            }
+        });
+        timeBtn = (Button) fragView.findViewById(R.id.bgl_time_button);
+        timeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog(v);
+            }
+        });
+        bgl_lvl = (EditText) fragView.findViewById(R.id.bgl_field);
+        save = (ImageButton) fragView.findViewById(R.id.bgl_frag_save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bgl.setBGL(Double.parseDouble(bgl_lvl.getText().toString()));
+            }
+        });
+        if(bgl != null){
+            setFields();
+        }
+        return  fragView;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -151,12 +161,12 @@ public class BGLEventFrag extends DialogFragment
     }
     public void setBGL(BGLLevel obj){
         bgl = obj;
-        setFields();
+        //setFields();
     }
     private void setFields(){
-        bgl_lvl.setText(bgl.getBGL());
-        dateBtn.setText(new SimpleDateFormat("MM/dd/YY").format(bgl.getEventDateTime()));
-        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(bgl.getEventDateTime()));
+        bgl_lvl.setText(String.valueOf(bgl.getBGL()));
+        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(bgl.getEventDateTime().getTime()));
+        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(bgl.getEventDateTime().getTime()));
     }
 
     //~~method when the time is picked~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

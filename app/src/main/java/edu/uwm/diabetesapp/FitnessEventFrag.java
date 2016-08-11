@@ -50,7 +50,7 @@ public class FitnessEventFrag extends DialogFragment
     private ImageButton save;
     private TextView qty;
     private TextView desc;
-
+    private View fragView;
     private OnFragmentInteractionListener mListener;
     private AppHelpers helper;
 
@@ -79,40 +79,18 @@ public class FitnessEventFrag extends DialogFragment
         if (getArguments() != null) {
             mParam1 = getArguments().getInt("_id", 0);
         }
-        dateBtn = (Button) getActivity().findViewById(R.id.bgl_date_button);
-        dateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog(v);
-            }
-        });
-        timeBtn = (Button) getActivity().findViewById(R.id.bgl_time_button);
-        timeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePickerDialog(v);
-            }
-        });
-        qty = (EditText) getActivity().findViewById(R.id.fitness_qty);
-        desc = (EditText) getActivity().findViewById(R.id.fitness_desc);
-        save = (ImageButton) getActivity().findViewById(R.id.fit_frag_save);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fit.setFitnessEvent(Integer.parseInt(qty.getText().toString()), desc.getText().toString());
-            }
-        });
+
     }
 
     public void setFitness(FitnessEvent f){
         fit = f;
-        setFields();
+        //setFields();
     }
     private void setFields(){
-        qty.setText(fit.getQTY());
+        qty.setText(String.valueOf(fit.getQTY()));
         desc.setText(fit.getExercise());
-        dateBtn.setText(new SimpleDateFormat("MM/dd/YY").format(fit.getEventDateTime()));
-        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(fit.getEventDateTime()));
+        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(fit.getEventDateTime().getTime()));
+        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(fit.getEventDateTime().getTime()));
     }
 
     private void showTimePickerDialog(View v) {
@@ -140,7 +118,34 @@ public class FitnessEventFrag extends DialogFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fitness_event, container, false);
+        fragView = inflater.inflate(R.layout.fragment_fitness_event, container, false);
+        dateBtn = (Button) fragView.findViewById(R.id.bgl_date_button);
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(v);
+            }
+        });
+        timeBtn = (Button) fragView.findViewById(R.id.bgl_time_button);
+        timeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog(v);
+            }
+        });
+        qty = (EditText) fragView.findViewById(R.id.fitness_qty);
+        desc = (EditText) fragView.findViewById(R.id.fitness_desc);
+        save = (ImageButton) fragView.findViewById(R.id.fit_frag_save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fit.setFitnessEvent(Integer.parseInt(qty.getText().toString()), desc.getText().toString());
+            }
+        });
+        if(fit != null){
+            setFields();
+        }
+        return fragView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

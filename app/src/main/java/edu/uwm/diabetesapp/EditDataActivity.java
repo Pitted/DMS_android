@@ -1,6 +1,7 @@
 package edu.uwm.diabetesapp;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.support.v4.app.DialogFragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,10 +37,12 @@ BGLEventFrag.OnFragmentInteractionListener, MedicationEventFrag.OnFragmentIntera
     private ListView list;
     private CursorAdapter adapter;
     private DataEvent listType = new BGLLevel();
+    private android.app.FragmentManager manager;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        manager = this.getFragmentManager();
         setContentView(R.layout.activity_edit_data);
         list = (ListView) findViewById(R.id.edit_data_list);
         db = DatabaseHelper.getInstance(this);
@@ -122,28 +126,27 @@ BGLEventFrag.OnFragmentInteractionListener, MedicationEventFrag.OnFragmentIntera
                     DataEvent obj = entry.createEvent();
                     if(obj instanceof BGLLevel){
                         BGLEventFrag frag = BGLEventFrag.newInstance(c.getLong(0));
-                        frag.onCreate(frag.getArguments());
                         frag.setBGL((BGLLevel) obj);
-                        frag.show(getFragmentManager(), "Edit BGL");
+                        frag.show(manager, "Edit BGL");
                     }
                     else if(obj instanceof  MedicationEvent){
                         MedicationEventFrag frag = MedicationEventFrag.newInstance(c.getLong(0));
-                        frag.onCreate(frag.getArguments());
                         frag.setMedication((MedicationEvent) obj);
-                        frag.show(getFragmentManager(), "Edit Medication");
+                        frag.show(manager, "Edit Medication");
                     }
                     else if(obj instanceof NutritionEvent){
                         NutritionEventFrag frag = NutritionEventFrag.newInstance(c.getLong(0));
-                        frag.onCreate(frag.getArguments());
                         frag.setNutrition((NutritionEvent) obj);
-                        frag.show(getFragmentManager(), "Edit Nutrition");
+                        frag.show(manager, "Edit Nutrition");
                     }
                     else{
                         FitnessEventFrag frag = FitnessEventFrag.newInstance(c.getLong(0));
-                        frag.onCreate(frag.getArguments());
                         frag.setFitness((FitnessEvent)obj);
-                        frag.show(getFragmentManager(), "Edit Fitness");
+                        frag.show(manager, "Edit Fitness");
                     }
+                    int width = getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+                    int height = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -157,24 +160,35 @@ BGLEventFrag.OnFragmentInteractionListener, MedicationEventFrag.OnFragmentIntera
     public void onFragmentInteraction(Uri uri) {
         //do nothing
     }
-
     @Override
     public void onSave(BGLLevel obj, long _id) {
-
+        ContentValues cv = new ContentValues();
+        cv.put("DateTime", (new AppHelpers()).formatDateTime(obj.getEventDateTime()));
+        cv.put("BGL", (obj.getBGL()));
+        DatabaseHelper.getInstance(this).getWritableDatabase().update("DiabeticTable", cv, "_id="+_id, null);
     }
 
     @Override
     public void onSave(MedicationEvent obj, long _id) {
-
-    }
+        ContentValues cv = new ContentValues();
+        cv.put("DateTime", (new AppHelpers()).formatDateTime(obj.getEventDateTime()));
+        cv.put("Medication", (obj.getMedicationEvent()));
+        DatabaseHelper.getInstance(this).getWritableDatabase().update("DiabeticTable", cv, "_id="+_id, null);
+        }
 
     @Override
     public void onSave(NutritionEvent obj, long _id) {
-
+        ContentValues cv = new ContentValues();
+        cv.put("DateTime", (new AppHelpers()).formatDateTime(obj.getEventDateTime()));
+        cv.put("Diet", obj.getNutritionEvent());
+        DatabaseHelper.getInstance(this).getWritableDatabase().update("DiabeticTable", cv, "_id="+_id, null);
     }
 
     @Override
     public void onSave(FitnessEvent obj, long _id) {
-
-    }
+        ContentValues cv = new ContentValues();
+        cv.put("DateTime", (new AppHelpers()).formatDateTime(obj.getEventDateTime()));
+        cv.put("Exercise", obj.getFitnessEvent());
+        DatabaseHelper.getInstance(this).getWritableDatabase().update("DiabeticTable", cv, "_id="+_id, null);
+        }
 }
