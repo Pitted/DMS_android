@@ -165,7 +165,7 @@ public class BGLEventFrag extends DialogFragment
     }
     private void setFields(){
         bgl_lvl.setText(String.valueOf(bgl.getBGL()));
-        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(bgl.getEventDateTime().getTime()));
+        dateBtn.setText(new SimpleDateFormat("MM/dd/yyyy").format(bgl.getEventDateTime().getTime()));
         timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(bgl.getEventDateTime().getTime()));
     }
 

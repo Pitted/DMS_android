@@ -1,4 +1,5 @@
 package edu.uwm.diabetesapp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class NutritionEvent extends DataEvent
@@ -63,9 +64,8 @@ public class NutritionEvent extends DataEvent
     }
 
     public String toString(){
-        String time = eventDateTime.HOUR_OF_DAY + ":" + eventDateTime.MINUTE ;
-        String date = (eventDateTime.MONTH + 1) + "/" + eventDateTime.DAY_OF_MONTH + "/" + eventDateTime.YEAR;
-
+        String time = new SimpleDateFormat("hh:mm aa").format(eventDateTime.getTime());
+        String date = new SimpleDateFormat("MM/dd/yyyy").format(eventDateTime.getTime());
         return "Consumed " + qty + " calories at " + time + " on " + date + "\nDescription: " + nutrition;
     }
     public void fromString(String s){

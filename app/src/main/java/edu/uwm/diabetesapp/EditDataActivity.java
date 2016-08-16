@@ -73,7 +73,7 @@ BGLEventFrag.OnFragmentInteractionListener, MedicationEventFrag.OnFragmentIntera
             public void onClick(View v) {
                 if (listType instanceof BGLLevel) return;
                 else {
-                    cursor = db.getBGLEvents();
+                    adapter.swapCursor(db.getBGLEvents());
                     listType = new BGLLevel();
                     adapter.notifyDataSetChanged();
                 }
@@ -121,7 +121,7 @@ BGLEventFrag.OnFragmentInteractionListener, MedicationEventFrag.OnFragmentIntera
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cursor c = (Cursor) adapter.getItem(position);
-                DiabeticEntry entry = new DiabeticEntry(cursor.getLong(0),cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getString(4),cursor.getString(5), cursor.getString(6));
+                DiabeticEntry entry = new DiabeticEntry(c.getLong(0),c.getString(1), c.getInt(2), c.getInt(3), c.getString(4),c.getString(5), c.getString(6));
                 try {
                     DataEvent obj = entry.createEvent();
                     if(obj instanceof BGLLevel){
@@ -166,6 +166,7 @@ BGLEventFrag.OnFragmentInteractionListener, MedicationEventFrag.OnFragmentIntera
         cv.put("DateTime", (new AppHelpers()).formatDateTime(obj.getEventDateTime()));
         cv.put("BGL", (obj.getBGL()));
         DatabaseHelper.getInstance(this).getWritableDatabase().update("DiabeticTable", cv, "_id="+_id, null);
+        
     }
 
     @Override
