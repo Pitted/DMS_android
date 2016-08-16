@@ -90,6 +90,7 @@ public class BGLEventFrag extends DialogFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        helper = new AppHelpers();
         fragView = inflater.inflate(R.layout.fragment_bglevent, container, false);
         dateBtn = (Button) fragView.findViewById(R.id.bgl_date_button);
         dateBtn.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +112,7 @@ public class BGLEventFrag extends DialogFragment
             @Override
             public void onClick(View v) {
                 bgl.setBGL(Double.parseDouble(bgl_lvl.getText().toString()));
+                onSave(bgl, getArguments().getLong("_id"));
             }
         });
         if(bgl != null){
@@ -235,6 +237,6 @@ public class BGLEventFrag extends DialogFragment
         void onFragmentInteraction(Uri uri);
     }
     public void onSave(BGLLevel o, long _id){
-        this.mCallBack.onSave(o, getArguments().getLong("_id"));
+        this.mCallBack.onSave(o, _id);
     }
 }

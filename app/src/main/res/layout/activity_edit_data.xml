@@ -55,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Start Date"
+            android:id="@+id/fromDateBtn"
             android:layout_weight="1"
             android:textSize="14dp"
             android:textAlignment="center"
@@ -72,9 +73,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="End Date"
+            android:id="@+id/toDateBtn"
             android:textSize="14dp"
             android:layout_gravity="center"
             android:textAlignment="center"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/refresh"
+            android:src="@drawable/refresh"
+            android:layout_gravity="center"
+            />
 
     </LinearLayout>
 

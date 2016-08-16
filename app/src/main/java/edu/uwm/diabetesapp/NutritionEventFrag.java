@@ -130,6 +130,7 @@ public class NutritionEventFrag extends DialogFragment implements DialogInterfac
             @Override
             public void onClick(View v) {
                 nut.setNutritionEvent(Integer.parseInt(qty.getText().toString()), desc.getText().toString());
+                onSave(nut, getArguments().getLong("_id"));
             }
         });
         if(nut != null){
@@ -229,6 +230,6 @@ public class NutritionEventFrag extends DialogFragment implements DialogInterfac
     }
 
     public void onSave(NutritionEvent o, long _id){
-        this.mCallback.onSave(nut,getArguments().getLong("_id"));
+        this.mCallback.onSave(nut,_id);
     }
 }

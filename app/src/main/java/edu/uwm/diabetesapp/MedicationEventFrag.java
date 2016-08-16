@@ -143,6 +143,7 @@ public class MedicationEventFrag extends android.app.DialogFragment
             @Override
             public void onClick(View v) {
                 med.setMedicationEvent(Integer.parseInt(qty.getText().toString()), desc.getText().toString());
+                onSave(med, getArguments().getLong("_id"));
             }
         });
         if(med != null){
@@ -230,6 +231,6 @@ public class MedicationEventFrag extends android.app.DialogFragment
         void onFragmentInteraction(Uri uri);
     }
     public void onSave(MedicationEvent o, long _id){
-        this.mCallBack.onSave(o, getArguments().getLong("_id"));
+        this.mCallBack.onSave(o, _id);
     }
 }

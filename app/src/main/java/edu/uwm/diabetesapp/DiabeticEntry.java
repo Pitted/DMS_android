@@ -91,7 +91,7 @@ public class DiabeticEntry {
         SimpleDateFormat format = new SimpleDateFormat();
         Calendar time = Calendar.getInstance();
         try{
-        time.setTime(new SimpleDateFormat("hh:mm aa EEE, MMM dd, yyyy").parse(timestamp));
+        time.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timestamp));
         }catch (ParseException e) {
             throw new ParseException("Date from DB is not in AppHelperFormat", e.getErrorOffset());
         }

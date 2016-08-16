@@ -11,6 +11,7 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -82,7 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues cv = new ContentValues();
         if (event instanceof BGLLevel) {
-            cv.put("DateTime", (new AppHelpers()).formatDateTime(((BGLLevel) event).getEventDateTime()));
+            cv.put("DateTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((BGLLevel) event).getEventDateTime().getTime()));
             cv.put("_id", getEntryCount());
             cv.put("EventCode", 0);
             cv.put("BGL", (((BGLLevel) event).getBGL()));
@@ -90,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put("Exercise", "");
             cv.put("Medication", "");
         } else if (event instanceof MedicationEvent) {
-            cv.put("DateTime", (new AppHelpers()).formatDateTime(((MedicationEvent) event).getEventDateTime()));
+            cv.put("DateTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((MedicationEvent) event).getEventDateTime().getTime()));
             cv.put("_id", getEntryCount());
             cv.put("EventCode", 3);
             cv.put("BGL", "");
@@ -98,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put("Exercise", "");
             cv.put("Medication", (((MedicationEvent) event).getMedicationEvent()));
         } else if (event instanceof NutritionEvent) {
-            cv.put("DateTime", (new AppHelpers()).formatDateTime(((NutritionEvent) event).getEventDateTime()));
+            cv.put("DateTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((NutritionEvent) event).getEventDateTime().getTime()));
             cv.put("_id", getEntryCount());
             cv.put("EventCode", 1);
             cv.put("BGL", "");
@@ -106,7 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cv.put("Exercise", "");
             cv.put("Medication", "");
         } else {
-            cv.put("DateTime", (new AppHelpers()).formatDateTime(((FitnessEvent) event).getEventDateTime()));
+            cv.put("DateTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((FitnessEvent) event).getEventDateTime().getTime()));
             cv.put("_id", getEntryCount());
             cv.put("EventCode", 2);
             cv.put("BGL", "");
@@ -237,6 +238,70 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(clearDBQuery);
     }
+
+    public boolean update(DataEvent obj, long _id){
+        if(obj instanceof BGLLevel){
+            ContentValues cv = new ContentValues();
+            cv.put("DateTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((BGLLevel) obj).getEventDateTime().getTime()));
+            cv.put("BGL", (((BGLLevel)obj).getBGL()));
+            this.getWritableDatabase().update("DiabeticTable", cv, "_id=" + _id, null);
+
+        }else if(obj instanceof MedicationEvent) {
+            ContentValues cv = new ContentValues();
+            cv.put("DateTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((MedicationEvent) obj).getEventDateTime().getTime()));
+            cv.put("Medication", (((MedicationEvent)obj).getMedicationEvent()));
+            this.getWritableDatabase().update("DiabeticTable", cv, "_id=" + _id, null);
+        }else if(obj instanceof NutritionEvent) {
+            ContentValues cv = new ContentValues();
+            cv.put("DateTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((NutritionEvent) obj).getEventDateTime().getTime()));
+            cv.put("Diet", ((NutritionEvent)obj).getNutritionEvent());
+            this.getWritableDatabase().update("DiabeticTable", cv, "_id=" + _id, null);
+        }else if(obj instanceof FitnessEvent){
+                ContentValues cv = new ContentValues();
+                cv.put("DateTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(((FitnessEvent) obj).getEventDateTime().getTime()));
+                cv.put("Exercise", ((FitnessEvent)obj).getFitnessEvent());
+                this.getWritableDatabase().update("DiabeticTable", cv, "_id="+_id, null);
+        }else {
+            return false;
+        }
+        return true;
+    }
+    /*
+  Code: BGL-0
+        Nutrition-1
+        Fitness-2
+        Medication-3
+   */
+    public Cursor getBGLEventBetween(Date from, Date to){
+        String statement =
+                "select * from " + DATABASE_TABLE +
+                        " where  EventCode = 0 AND " +
+                        "(DateTime >= Datetime('" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(from) + "') AND  DateTime <= Datetime('" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(to) + "') )";
+        return this.getReadableDatabase().rawQuery(statement, null);
+    }
+    public Cursor getMedEventBetween(Date from, Date to){
+        String statement =
+                "select * from " + DATABASE_TABLE + "" +
+                        " where EventCode = 3 AND " +
+                        "(DateTime >= Datetime('" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(from) + "') AND  DateTime <= Datetime('" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(to) + "') )";
+        return this.getReadableDatabase().rawQuery(statement, null);
+    }
+    public Cursor getNutEventBetween(Date from, Date to){
+        String statement =
+                "select * from " + DATABASE_TABLE + "" +
+                        " where EventCode = 1 AND " +
+                        "(DateTime >= Datetime('" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(from) + "') AND  DateTime <= Datetime('" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(to) + "') )";
+        return this.getReadableDatabase().rawQuery(statement, null);
+
+    }
+    public Cursor getFitEventBetween(Date from, Date to){
+        String statement =
+                "select * from " + DATABASE_TABLE + "" +
+                        " where EventCode = 2 AND " +
+                        "(DateTime >= Datetime('" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(from) + "') AND  DateTime <= Datetime('" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(to) + "') )";
+        return this.getReadableDatabase().rawQuery(statement, null);
+    }
+
 }
 
 

@@ -140,6 +140,7 @@ public class FitnessEventFrag extends DialogFragment
             @Override
             public void onClick(View v) {
                 fit.setFitnessEvent(Integer.parseInt(qty.getText().toString()), desc.getText().toString());
+                onSave(fit, getArguments().getLong("_id"));
             }
         });
         if(fit != null){
@@ -215,6 +216,6 @@ public class FitnessEventFrag extends DialogFragment
         void onFragmentInteraction(Uri uri);
     }
     public void onSave(FitnessEvent o, long _id){
-        this.mCallBack.onSave(o, getArguments().getLong("_id"));
+        this.mCallBack.onSave(o, _id);
     }
 }
