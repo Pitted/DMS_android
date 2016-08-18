@@ -44,7 +44,7 @@ public class FitnessEventFrag extends DialogFragment
 
     // TODO: Rename and change types of parameters
     private int mParam1;
-    private FitnessEvent fit;
+    private FitnessEvent fit = new FitnessEvent();
     private Button dateBtn;
     private Button timeBtn;
     private ImageButton save;
@@ -89,8 +89,10 @@ public class FitnessEventFrag extends DialogFragment
     private void setFields(){
         qty.setText(String.valueOf(fit.getQTY()));
         desc.setText(fit.getExercise());
-        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(fit.getEventDateTime().getTime()));
-        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(fit.getEventDateTime().getTime()));
+        if(fit.getEventDateTime() != null) {
+            dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(fit.getEventDateTime().getTime()));
+            timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(fit.getEventDateTime().getTime()));
+        }
     }
 
     private void showTimePickerDialog(View v) {

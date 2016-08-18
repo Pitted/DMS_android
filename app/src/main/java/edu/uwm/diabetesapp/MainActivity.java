@@ -89,6 +89,14 @@ public class MainActivity extends Activity {
         //~~ set up the notifier service~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Intent intent = new Intent(this, NotifierService2.class);
         startService(intent);
+        Button GraphBtn = (Button) findViewById(R.id.graph_btn);
+        GraphBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoGraph = new Intent(MainActivity.this, GraphActivity.class);
+                startActivity(gotoGraph);
+            }
+        });
     }
     //end OnCreate
 

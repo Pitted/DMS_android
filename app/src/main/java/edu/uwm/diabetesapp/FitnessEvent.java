@@ -15,6 +15,7 @@ public class FitnessEvent extends DataEvent {
 
     public FitnessEvent() {
         fitnessEvent = null;
+        eventDateTime = Calendar.getInstance();
     }
 
     public void setExercise(String exercises){

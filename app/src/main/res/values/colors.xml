@@ -8,4 +8,5 @@
     <color name="row_background">#4F4F4F</color>
     <color name="radio_unchecked">#FFFFFF</color>
     <color name="radio_checked">#FFFFFF</color>
+    <color name="graphline">#A03</color>
 </resources>

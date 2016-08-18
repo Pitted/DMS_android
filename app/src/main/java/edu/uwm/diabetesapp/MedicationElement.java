@@ -95,4 +95,8 @@ public class MedicationElement extends AddDataElement
         timebtn.setText(helper.formatTime(hour, minute));
         medication.setEventDateTime(hour, minute);
     }
+    @Override
+    public DataEvent getEvent(){
+        return medication;
+    }
 }

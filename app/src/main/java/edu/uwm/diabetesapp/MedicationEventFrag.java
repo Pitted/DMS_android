@@ -42,7 +42,7 @@ public class MedicationEventFrag extends android.app.DialogFragment
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
 
-    private MedicationEvent med;
+    private MedicationEvent med = new MedicationEvent();
     private Button dateBtn;
     private Button timeBtn;
     private ImageButton save;
@@ -88,14 +88,19 @@ public class MedicationEventFrag extends android.app.DialogFragment
         med = obj;
         //setFields();
     }
-    public void setFields(){
-        qty.setText(String.valueOf(med.getQty()));
-        desc.setText(med.getMedication());
-        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(med.getEventDateTime().getTime()));
-        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(med.getEventDateTime().getTime()));
+    public void setFields() {
+        if (med != null) {
+            qty.setText(String.valueOf(med.getQty()));
+            desc.setText(med.getMedication());
+            if (med.getEventDateTime() != null) {
+                dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(med.getEventDateTime().getTime()));
+                timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(med.getEventDateTime().getTime()));
+            }
+        }
     }
+
     private void showDatePickerDialog(View v) {
-        if(med.getEventDateTime() != null){
+        if(med != null && med.getEventDateTime() != null){
             Calendar c = med.getEventDateTime();
             DatePickerDialog datePicker = new DatePickerDialog(getActivity(),this,c.get(Calendar.YEAR),c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
             datePicker.show();
@@ -106,7 +111,7 @@ public class MedicationEventFrag extends android.app.DialogFragment
     }
 
     private void showTimePickerDialog(View v) {
-        if(med.getEventDateTime() != null){
+        if(med != null && med.getEventDateTime() != null){
             Calendar c = med.getEventDateTime();
             TimePickerDialog timePicker = new TimePickerDialog(getActivity(), this, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
             timePicker.show();
@@ -190,13 +195,14 @@ public class MedicationEventFrag extends android.app.DialogFragment
     @Override
     public void onDatePicked(int picker, int year, int month, int dayOfMonth) {
         med.setEventDateTime(year, month, dayOfMonth);
-        setFields();
+        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(med.getEventDateTime().getTime()));
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         med.setEventDateTime(year, monthOfYear, dayOfMonth);
-        setFields();
+        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(med.getEventDateTime().getTime()));
+
     }
 
     @Override
@@ -207,13 +213,13 @@ public class MedicationEventFrag extends android.app.DialogFragment
     @Override
     public void onTimePicked(int picker, int hour, int minute) {
         med.setEventDateTime(hour, minute);
-        setFields();
+        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(med.getEventDateTime().getTime()));
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         med.setEventDateTime(hourOfDay, minute);
-        setFields();
+        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(med.getEventDateTime().getTime()));
     }
 
     /**

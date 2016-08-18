@@ -39,12 +39,12 @@ public class NutritionEventFrag extends DialogFragment implements DialogInterfac
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-    private NutritionEvent nut;
+    private NutritionEvent nut = new NutritionEvent();
 
 
     // TODO: Rename and change types of parameters
     private int mParam1;
-    private BGLLevel bgl;
+
     private Button dateBtn;
     private Button timeBtn;
     private ImageButton save;
@@ -176,8 +176,8 @@ public class NutritionEventFrag extends DialogFragment implements DialogInterfac
 
     @Override
     public void onDatePicked(int picker, int year, int month, int dayOfMonth) {
-        nut.setEventDateTime(year, month+1, dayOfMonth);
-        //setFields();
+        nut.setEventDateTime(year, month + 1, dayOfMonth);
+        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(nut.getEventDateTime().getTime()));
     }
 
     public void setNutrition(NutritionEvent o){
@@ -187,14 +187,16 @@ public class NutritionEventFrag extends DialogFragment implements DialogInterfac
     private void setFields() {
         qty.setText(String.valueOf(nut.getQty()));
         desc.setText(nut.getNutrition());
-        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(nut.getEventDateTime().getTime()));
-        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(nut.getEventDateTime().getTime()));
+        if(nut.getEventDateTime() != null){
+            timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(nut.getEventDateTime().getTime()));
+            dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(nut.getEventDateTime().getTime()));
+        }
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         nut.setEventDateTime(year, monthOfYear, dayOfMonth);
-        setFields();
+        dateBtn.setText(new SimpleDateFormat("MM/dd/yy").format(nut.getEventDateTime().getTime()));
     }
 
     @Override
@@ -205,13 +207,13 @@ public class NutritionEventFrag extends DialogFragment implements DialogInterfac
     @Override
     public void onTimePicked(int picker, int hour, int minute) {
         nut.setEventDateTime(hour, minute);
-        setFields();
+        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(nut.getEventDateTime().getTime()));
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         nut.setEventDateTime(hourOfDay, minute);
-        setFields();
+        timeBtn.setText(new SimpleDateFormat("hh:mm aa").format(nut.getEventDateTime().getTime()));
     }
 
     /**

@@ -9,24 +9,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.uwm.diabetesapp.MainActivity"
-    android:weightSum="1">
+    android:layout_weight="1">
 
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="BGL"
+        android:layout_gravity="center_vertical"
         android:id="@+id/BGLbutton"
-
-        android:layout_marginTop="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textAlignment="center"
-        android:drawableLeft="@drawable/bgl"
+        android:drawableLeft="@drawable/opacity"
         android:textAllCaps="false"
         android:clickable="false"
         android:layout_weight="1"/>
@@ -36,17 +30,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nutrition"
+        android:height="30dp"
         android:id="@+id/Nutritionbutton"
-
-        android:height="90dp"
-        android:width="160dp"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:layout_below="@+id/BGLbutton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_gravity="center_vertical"
         android:textAlignment="center"
-        android:drawableLeft="@drawable/nutrition"
+        android:drawableLeft="@drawable/food_apple"
         android:textAllCaps="false"
         android:layout_weight="1"/>
 
@@ -55,16 +45,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Fitness"
+        android:height="30dp"
         android:id="@+id/Fitnessbutton"
-        android:height="90dp"
-        android:width="160dp"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:layout_below="@+id/FitnessSave_btn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_gravity="center_vertical"
         android:textAlignment="center"
-        android:drawableLeft="@drawable/fitness"
+        android:drawableLeft="@drawable/bike"
         android:textAllCaps="false"
         android:layout_weight="1"/>
 
@@ -73,16 +60,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Medication"
+        android:height="30dp"
         android:id="@+id/Medicationbutton"
-
-        android:height="90dp"
-        android:width="160dp"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:layout_below="@+id/Fitnessbutton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textAlignment="center"
-        android:drawableLeft="@drawable/meds"
+        android:drawableLeft="@drawable/pill"
         android:textAllCaps="false"
         android:layout_weight="1"/>
 
@@ -90,17 +73,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Stats"
+        android:height="30dp"
         android:id="@+id/Statsbutton"
-        android:height="70dp"
-        android:width="160dp"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:layout_below="@+id/Medicationbutton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:layout_weight="1"/>
         <!--android:drawableLeft="@drawable/graph"-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Graph"
+        android:id="@+id/graph_btn"
+        android:height="30dp"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:drawableLeft="@drawable/chart"
+        android:layout_weight="1"
+        android:textAllCaps="false"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -110,7 +101,6 @@
         android:layout_height="wrap_content"
         android:text="Input Events"
         android:textSize="16dp"
-        android:height="50dp"
         android:id="@+id/input_events_button"
         android:layout_weight="1"
         android:layout_gravity="center"

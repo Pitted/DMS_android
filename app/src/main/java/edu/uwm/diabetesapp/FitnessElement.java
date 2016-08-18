@@ -92,4 +92,8 @@ public class FitnessElement extends AddDataElement
         timebtn.setText(helper.formatTime(hour, minute));
         fit.setEventDateTime(hour, minute);
     }
+    @Override
+    public DataEvent getEvent(){
+        return fit;
+    }
 }

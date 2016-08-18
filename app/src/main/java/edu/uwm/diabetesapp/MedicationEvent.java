@@ -11,6 +11,7 @@ public class MedicationEvent extends DataEvent {
 
     public MedicationEvent() {
         medicationEvent = null;
+        eventDateTime = Calendar.getInstance();
     }
 
     public void setQty(int amount){

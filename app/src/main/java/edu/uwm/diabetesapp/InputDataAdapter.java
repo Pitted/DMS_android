@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,9 @@ public class InputDataAdapter extends ArrayAdapter<AddDataElement>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         if(convertView == null){
-            return ((View) dataElements.get(position));
+            TextView v = new TextView(getContext());
+            v.setText(dataElements.get(position).getEvent().toString());
+            return (v);
         }
         return convertView;
     }

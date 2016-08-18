@@ -13,6 +13,7 @@ public class NutritionEvent extends DataEvent
 
     public NutritionEvent() {
         nutritionEvent = null;
+        eventDateTime = Calendar.getInstance();
     }
 
 

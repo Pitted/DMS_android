@@ -93,7 +93,11 @@ public class DietElement  extends AddDataElement
     //~~method when a date is picked~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     @Override
     public void onDatePicked(int picker, int year, int month, int day) {
-        datebtn.setText(helper.formatDate(year,month+1,day));
+        datebtn.setText(helper.formatDate(year, month + 1, day));
         meal.setEventDateTime(year, month, day);
+    }
+    @Override
+    public DataEvent getEvent(){
+        return meal;
     }
 }

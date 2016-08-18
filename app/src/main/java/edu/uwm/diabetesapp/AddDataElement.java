@@ -21,4 +21,5 @@ public class AddDataElement extends LinearLayout {
     }
     public Activity getParentActivity(){return parent;}
     public boolean save(){return false;}
+    public DataEvent getEvent(){return null;}
 }

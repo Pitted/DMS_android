@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class AddDataActivity extends Activity
-        implements TimePickerFragment.OnTimePickedListener, DatePickerFragment.OnDatePickedListener {
+        implements TimePickerFragment.OnTimePickedListener, DatePickerFragment.OnDatePickedListener, BGLEventFrag.OnSaveListener, MedicationEventFrag.OnSaveListener, NutritionEventFrag.OnSaveListener, FitnessEventFrag.OnSaveListener,
+        BGLEventFrag.OnFragmentInteractionListener, MedicationEventFrag.OnFragmentInteractionListener, NutritionEventFrag.OnFragmentInteractionListener, FitnessEventFrag.OnFragmentInteractionListener
+{
 
 
 
     private LinearLayout lvHeader;
-    private ListView data_list;
+    private InputDataList data_list;
     private ImageButton save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,28 @@ public class AddDataActivity extends Activity
     }
 
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //do nothing
+    }
 
+    @Override
+    public void onSave(FitnessEvent obj, long _id) {
+        data_list.onSave(obj,_id);
+    }
 
+    @Override
+    public void onSave(BGLLevel obj, long _id) {
+        data_list.onSave(obj,_id);
+    }
 
+    @Override
+    public void onSave(MedicationEvent obj, long _id) {
+        data_list.onSave(obj,_id);
+    }
+
+    @Override
+    public void onSave(NutritionEvent obj, long _id) {
+        data_list.onSave(obj,_id);
+    }
 }

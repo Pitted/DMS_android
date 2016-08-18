@@ -88,14 +88,18 @@ public class BGLElement extends AddDataElement
     @Override
     public void onTimePicked(int picker, int hour, int minute) {
         TimeBtn.setText(helper.formatTime(hour,minute));
-        bgl.setEventDateTime(hour,minute);
+        bgl.setEventDateTime(hour, minute);
     }
 
     //~~method when a date is picked~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     @Override
     public void onDatePicked(int picker, int year, int month, int day) {
-        DateBtn.setText(helper.formatDate(year,month+1,day));
+        DateBtn.setText(helper.formatDate(year, month + 1, day));
         bgl.setEventDateTime(year,month,day);
 
+    }
+    @Override
+    public DataEvent getEvent(){
+        return bgl;
     }
 }

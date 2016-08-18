@@ -44,7 +44,7 @@ public class BGLEventFrag extends DialogFragment
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private BGLLevel bgl;
+    private BGLLevel bgl = new BGLLevel();
     private Button dateBtn;
     private Button timeBtn;
     private ImageButton save;
@@ -186,7 +186,7 @@ public class BGLEventFrag extends DialogFragment
 
     }
     public void showDatePickerDialog(View v) {
-        if(bgl.getEventDateTime() != null){
+        if(bgl!= null && bgl.getEventDateTime() != null){
             Calendar c =  bgl.getEventDateTime();
             DatePickerDialog datePicker = new DatePickerDialog(getActivity(),this,c.get(Calendar.YEAR),c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
             datePicker.show();
@@ -200,7 +200,7 @@ public class BGLEventFrag extends DialogFragment
 
     //~~method to launch the time picker~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public void showTimePickerDialog(View v) {
-        if(bgl.getEventDateTime() != null){
+        if(bgl != null && bgl.getEventDateTime() != null){
             Calendar c = bgl.getEventDateTime();
             TimePickerDialog timePicker = new TimePickerDialog(getActivity(), this, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
             timePicker.show();
